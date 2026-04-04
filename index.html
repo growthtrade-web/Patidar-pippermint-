@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patidar Peppermint | Order Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mint: #00fa9a; 
+            --gold: #d4af37;
+            --dark-bg: #0a1a14; 
+            --card-bg: #132a22; 
+            --whatsapp: #25d366;
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #e0f2f1; 
+            font-family: 'Poppins', sans-serif; 
+            text-align: center; 
+            margin: 0; 
+            padding-bottom: 50px; 
+        }
+
+        .header { 
+            background: #0d231b; 
+            padding: 40px 20px; 
+            border-bottom: 3px solid var(--mint);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 { 
+            font-family: 'Playfair Display', serif; 
+            color: var(--mint); 
+            margin: 0;
+            font-size: 26px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid rgba(0, 250, 154, 0.2); 
+            border-radius: 15px; 
+            padding: 25px; 
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover { transform: translateY(-5px); border-color: var(--mint); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+
+        h3 { margin: 10px 0; color: #fff; font-size: 20px; text-transform: capitalize; }
+        p { font-size: 13px; opacity: 0.8; margin-bottom: 15px; }
+
+        .price { 
+            font-size: 28px; 
+            color: var(--mint); 
+            font-weight: bold; 
+            margin-bottom: 20px; 
+        }
+
+        .btn-wa { 
+            display: block; 
+            padding: 15px; 
+            text-decoration: none; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            font-size: 15px;
+            background: var(--whatsapp); 
+            color: white;
+            transition: 0.2s;
+        }
+
+        .btn-wa:hover { background: #1ebe57; transform: scale(1.03); }
+
+        .tag {
+            font-size: 10px;
+            background: var(--gold);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🍃 PATIDAR PEPPERMINT</h1>
+        <p style="color: var(--gold); margin: 5px 0 0 0; font-size: 14px;">Pure Quality & Refreshing Taste</p>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 1</span>
+                <h3>soan papdi</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹249</div>
+            <a href="https://wa.me/917383838107?text=I want to order soan papdi" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 2</span>
+                <h3>choco dhoom</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹239</div>
+            <a href="https://wa.me/7383838107?text=I want to order choco dhoom" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 3</span>
+                <h3>rolls royal milk</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹199</div>
+            <a href="https://wa.me/917383838107?text=I want to order rolls royal milk" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 4</span>
+                <h3>kitkat</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹299</div>
+            <a href="https://wa.me/917383838107?text=I want to order kitkat" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 5</span>
+                <h3>frootola coconut</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹289</div>
+            <a href="https://wa.me/917383838107?text=I want to order frootola coconut" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 6</span>
+                <h3>3D eye soft chew ball</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹249</div>
+            <a href="https://wa.me/917383838107?text=I want to order 3D eye soft chew ball" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 7</span>
+                <h3>seven star</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹269</div>
+            <a href="https://wa.me/917383838107?text=I want to order seven star" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 8</span>
+                <h3>treasure</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹259</div>
+            <a href="https://wa.me/917383838107?text=I want to order treasure" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 9</span>
+                <h3>choco speed</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹279</div>
+            <a href="https://wa.me/917383838107?text=I want to order choco speed" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag">ITEM 10</span>
+                <h3>joyland</h3>
+                <p>Premium quality chocolate from Patidar collection.</p>
+            </div>
+            <div class="price">₹249</div>
+            <a href="https://wa.me/917383838107?text=I want to order joyland" class="btn-wa">Order on WhatsApp</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
