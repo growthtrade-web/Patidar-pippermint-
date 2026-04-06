@@ -3,307 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patel & Patel Panipuri | Online Orders</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Patel & Patel Panipuri</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d32f2f">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --red: #d32f2f; /* Food Theme Red */
-            --yellow: #ffd600; /* Food Theme Yellow */
-            --dark-bg: #1a0f0f; 
-            --card-bg: #ffffff; 
-            --whatsapp: #25d366;
-            --text-dark: #333333;
-        }
+        :root { --red: #d32f2f; --yellow: #ffd600; --whatsapp: #25d366; }
+        body { background: #1a0f0f; font-family: 'Poppins', sans-serif; margin: 0; text-align: center; color: #333; }
+        
+        .header { background: #fff; padding: 25px; border-bottom: 5px solid var(--red); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        h1 { color: var(--red); margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; }
+        .sub-text { color: #555; font-size: 14px; margin-top: 5px; }
 
-        body { 
-            background: var(--dark-bg); 
-            color: var(--text-dark); 
-            font-family: 'Poppins', sans-serif; 
-            text-align: center; 
-            margin: 0; 
-            padding-bottom: 50px; 
-        }
+        .category-title { color: var(--yellow); font-size: 24px; margin: 30px 0 15px; font-family: 'Playfair Display', serif; text-decoration: underline; }
 
-        .header { 
-            background: #ffffff; 
-            padding: 25px 20px; 
-            border-bottom: 5px solid var(--red);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
+        .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 15px 30px; max-width: 800px; margin: 0 auto; }
+        
+        .card { background: #fff; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        h3 { margin: 5px 0; font-size: 16px; color: #000; min-height: 45px; display: flex; align-items: center; justify-content: center; }
+        
+        .price { color: var(--red); font-weight: bold; font-size: 22px; margin: 10px 0; }
+        
+        .btn-wa { background: var(--whatsapp); color: white; padding: 10px; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 600; transition: 0.2s; }
+        .btn-wa:hover { background: #1ebe57; transform: scale(1.05); }
 
-        h1 { 
-            font-family: 'Playfair Display', serif; 
-            color: var(--red); 
-            margin: 0;
-            font-size: 28px;
-            text-transform: uppercase;
-        }
-
-        .category-container {
-            margin: 30px auto 10px;
-            max-width: 1200px;
-            padding: 0 15px;
-        }
-
-        .category-title {
-            color: var(--yellow);
-            font-size: 24px;
-            border-bottom: 2px solid var(--yellow);
-            display: inline-block;
-            padding-bottom: 5px;
-            margin-bottom: 20px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* 2 items per row on mobile */
-            gap: 15px;
-            padding: 0 15px 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .card { 
-            background: var(--card-bg); 
-            border: 1px solid #ddd; 
-            border-radius: 10px; 
-            padding: 15px; 
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-
-        h3 { margin: 10px 0 5px; color: var(--text-dark); font-size: 16px; font-weight: 500; }
-
-        .price { 
-            font-size: 22px; 
-            color: var(--red); 
-            font-weight: bold; 
-            margin-bottom: 15px; 
-        }
-
-        .btn-wa { 
-            display: block; 
-            padding: 10px; 
-            text-decoration: none; 
-            border-radius: 8px; 
-            font-weight: 600; 
-            font-size: 13px;
-            background: var(--whatsapp); 
-            color: white;
-            transition: 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .btn-wa:hover { background: #1ebe57; transform: scale(1.03); }
-
-        /* Small screen adjustments */
-        @media (max-width: 480px) {
-            .container { grid-template-columns: repeat(2, 1fr); }
-            h1 { font-size: 24px; }
-            .category-title { font-size: 20px; }
-        }
+        @media (max-width: 380px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>🍽️ PATEL & PATEL</h1>
-        <p style="color: var(--text-dark); margin: 5px 0 0 0; font-size: 14px;">Panipuri • Bhel • Dabeli • Alupuri</p>
+        <p class="sub-text">શુદ્ધ અને ચટાકેદાર પાણીપુરી • ભેળ • દાબેલી</p>
     </div>
 
-    <div class="category-container">
-        <div class="category-title">પાણીપુરી</div>
-    </div>
+    <div class="category-title">પાણીપુરી</div>
     <div class="container">
-        <div class="card">
-            <h3>પાની પૂરી</h3>
-            <div class="price">₹૨૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: પાની પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>રગડા પૂરી</h3>
-            <div class="price">₹૨૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: રગડા પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>લીંબુ મસાલા પૂરી</h3>
-            <div class="price">₹૩૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: લીંબુ મસાલા પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>શેવ પૂરી</h3>
-            <div class="price">₹૩૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: શેવ પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>દહીં પૂરી</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: દહીં પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ચટણી પૂરી</h3>
-            <div class="price">₹૪૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ચટણી પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>શેવ પૂરી (દહીં સાથે)</h3>
-            <div class="price">₹૪૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: શેવ પૂરી (દહીં સાથે)" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>સ્પે. P & P પૂરી</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: સ્પે. P & P પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ચીઝ પૂરી</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ચીઝ પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>પીઝા પૂરી</h3>
-            <div class="price">₹૭૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: પીઝા પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
+        <div class="card"><h3>પાની પૂરી</h3><div class="price">₹૨૦</div><a href="https://wa.me/917383838107?text=Order: પાની પૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>રગડા પૂરી</h3><div class="price">₹૨૦</div><a href="https://wa.me/917383838107?text=Order: રગડા પૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>લીંબુ મસાલા પૂરી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: લીંબુ મસાલા પૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>શેવ પૂરી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: શેવ પૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>દહીં પૂરી</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: દહીં પૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>ચીઝ પૂરી</h3><div class="price">₹૬૦</div><a href="https://wa.me/917383838107?text=Order: ચીઝ પૂરી" class="btn-wa">WhatsApp Order</a></div>
     </div>
 
-    <div class="category-container">
-        <div class="category-title">ભેળ</div>
-    </div>
+    <div class="category-title">ભેળ</div>
     <div class="container">
-        <div class="card">
-            <h3>બોમ્બે ભેળ પૂરી</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: બોમ્બે ભેળ પૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>પૂરી લુંગ</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: પૂરી લુંગ" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>સ્પે. પૂરી લુંગ</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: સ્પે. પૂરી લુંગ" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ચુરમા</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ચુરમા" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>કાઠીયાવાડી ભેળ</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: કાઠીયાવાડી ભેળ" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ગરમ ભેળ</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ગરમ ભેળ" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ચીઝ ભેળ</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ચીઝ ભેળ" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>દહીં ચેવડો</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: દહીં ચેવડો" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ફરાળી ભેળ</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ફરાળી ભેળ" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ફરાળી ચીઝ ભેળ</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ફરાળી ચીઝ ભેળ" class="btn-wa">Order on WhatsApp</a>
-        </div>
+        <div class="card"><h3>બોમ્બે ભેળ પૂરી</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: બોમ્બે ભેળ પૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>પૂરી લુંગ</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: પૂરી લુંગ" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>કાઠીયાવાડી ભેળ</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: કાઠીયાવાડી ભેળ" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>ચીઝ ભેળ</h3><div class="price">₹૬૦</div><a href="https://wa.me/917383838107?text=Order: ચીઝ ભેળ" class="btn-wa">WhatsApp Order</a></div>
     </div>
 
-    <div class="category-container">
-        <div class="category-title">દાબેલી</div>
-    </div>
+    <div class="category-title">દાબેલી</div>
     <div class="container">
-        <div class="card">
-            <h3>કચ્છી દાબેલી</h3>
-            <div class="price">₹૨૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: કચ્છી દાબેલી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ઓઈલ દાબેલી</h3>
-            <div class="price">₹૨૫</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ઓઈલ દાબેલી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>બટર ફ્રાય દાબેલી</h3>
-            <div class="price">₹૩૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: બટર ફ્રાય દાબેલી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ચીઝ બટર દાબેલી</h3>
-            <div class="price">₹૫૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ચીઝ બટર દાબેલી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>કચ્છી દાબેલી કડક</h3>
-            <div class="price">₹૩૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: કચ્છી દાબેલી કડક" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>કચ્છી દાબેલી કડક વીથ ચીઝ</h3>
-            <div class="price">₹૪૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: કચ્છી દાબેલી કડક વીથ ચીઝ" class="btn-wa">Order on WhatsApp</a>
-        </div>
+        <div class="card"><h3>કચ્છી દાબેલી</h3><div class="price">₹૨૦</div><a href="https://wa.me/917383838107?text=Order: કચ્છી દાબેલી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>ઓઈલ દાબેલી</h3><div class="price">₹૨૫</div><a href="https://wa.me/917383838107?text=Order: ઓઈલ દાબેલી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>બટર ફ્રાય દાબેલી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: બટર ફ્રાય દાબેલી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>ચીઝ બટર દાબેલી</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: ચીઝ બટર દાબેલી" class="btn-wa">WhatsApp Order</a></div>
     </div>
 
-    <div class="category-container">
-        <div class="category-title">આલુપૂરી</div>
-    </div>
+    <div class="category-title">આલુપૂરી</div>
     <div class="container">
-        <div class="card">
-            <h3>સ્પે. બોમ્બે આલુપૂરી</h3>
-            <div class="price">₹૩૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: સ્પે. બોમ્બે આલુપૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ઓઈલ આલુપૂરી</h3>
-            <div class="price">₹૩૫</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ઓઈલ આલુપૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>બટર ફ્રાય આલુપૂરી</h3>
-            <div class="price">₹૪૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: બટર ફ્રાય આલુપૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>ચીઝ બટર ફ્રાય આલુપૂરી</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: ચીઝ બટર ફ્રાય આલુપૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>રગડા આલુપૂરી</h3>
-            <div class="price">₹૪૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: રગડા આલુપૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
-        <div class="card">
-            <h3>સ્પે. P & P આલુપૂરી</h3>
-            <div class="price">₹૬૦</div>
-            <a href="https://wa.me/917383838107?text=I want to order: સ્પે. P & P આલુપૂરી" class="btn-wa">Order on WhatsApp</a>
-        </div>
+        <div class="card"><h3>સ્પે. બોમ્બે આલુપૂરી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: સ્પે. બોમ્બે આલુપૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>રગડા આલુપૂરી</h3><div class="price">₹૪૦</div><a href="https://wa.me/917383838107?text=Order: રગડા આલુપૂરી" class="btn-wa">WhatsApp Order</a></div>
+        <div class="card"><h3>સ્પે. P & P આલુપૂરી</h3><div class="price">₹૬૦</div><a href="https://wa.me/917383838107?text=Order: સ્પે. P & P આલુપૂરી" class="btn-wa">WhatsApp Order</a></div>
     </div>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+    </script>
 </body>
 </html>
