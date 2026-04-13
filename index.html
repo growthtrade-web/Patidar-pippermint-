@@ -3,67 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | Home</title>
+    <title>Growth Cinema | Fast Download</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Arial', sans-serif; background: #000; color: #fff; }
-        header { background: linear-gradient(to bottom, #ff0000, #000); padding: 40px 20px; text-align: center; }
-        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px; }
-        .card { background: #111; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
-        .card img { width: 100%; height: 230px; object-fit: cover; background: #222; }
-        .info { padding: 10px; text-align: center; }
-        .info h3 { font-size: 0.9rem; margin-bottom: 10px; height: 35px; overflow: hidden; }
-        .links { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
-        .btn { text-decoration: none; padding: 10px; border-radius: 5px; font-size: 11px; font-weight: bold; text-align: center; color: #fff; }
-        .b-watch { background: #e50914; }
-        .b-down { background: #3498db; }
-        footer { text-align: center; padding: 30px; color: #444; border-top: 1px solid #222; }
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; }
+        
+        header { 
+            background: linear-gradient(180deg, #ff0000 0%, #000 100%);
+            padding: 30px 10px; text-align: center;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px; padding: 15px;
+        }
+
+        .movie-card {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .movie-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffcc00;
+            min-height: 40px;
+        }
+
+        .links { display: flex; flex-direction: column; gap: 10px; }
+        
+        .btn {
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        /* Working Download Buttons */
+        .btn-fast { background: #27ae60; color: white; } /* Server 1 */
+        .btn-hd { background: #e67e22; color: white; }   /* Server 2 */
+
+        footer { text-align: center; padding: 40px; color: #444; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Growth Cinema</h1>
-    <p>Watch World's Best Movies & Series</p>
+    <p>Direct & Fast Download Links</p>
 </header>
 
-<div class="container" id="movie-grid">
+<div class="container" id="movie-list">
     </div>
 
 <script>
-    // Direct Movies Data (No API needed)
+    // Is list mein aap jitni chahein movies add kar sakte hain
     const movies = [
-        { name: "Pushpa 2: The Rule", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
-        { name: "Singham Again", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { name: "Deadpool & Wolverine", img: "https://image.tmdb.org/t/p/w500/8cdWjvZQUvS6UvU6z8UvU6z8UvU.jpg" },
-        { name: "Kalki 2898 AD", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { name: "Animal", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
-        { name: "Jawan", img: "https://image.tmdb.org/t/p/w500/n8Z89I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { name: "Spider-Man: No Way Home", img: "https://image.tmdb.org/t/p/w500/1g0m2YpScyIzXvW9hHozCLJbiST.jpg" },
-        { name: "Stranger Things", img: "https://image.tmdb.org/t/p/w500/49WfT1U6NX6YmPOCtz9t99696Yg.jpg" },
-        { name: "Money Heist", img: "https://image.tmdb.org/t/p/w500/reEMJA1uzpG6Xp9TYvno6AosY3c.jpg" },
-        { name: "The Batman", img: "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onun.jpg" }
+        { name: "Pushpa 2: The Rule" },
+        { name: "Singham Again" },
+        { name: "Deadpool & Wolverine" },
+        { name: "Kalki 2898 AD" },
+        { name: "Animal" },
+        { name: "Jawan" },
+        { name: "Stree 2" },
+        { name: "Gadar 2" },
+        { name: "Leo" },
+        { name: "Salaar" },
+        { name: "KGF Chapter 2" },
+        { name: "RRR" }
     ];
 
-    const grid = document.getElementById('movie-grid');
+    const listContainer = document.getElementById('movie-list');
 
     movies.forEach(movie => {
         const card = document.createElement('div');
-        card.className = 'card';
+        card.className = 'movie-card';
+        
+        // Vegamovies aur 1024Tera ke search links jo 100% kaam karte hain
+        const server1 = `https://vegamovies.ngo/?s=${encodeURIComponent(movie.name)}`;
+        const server2 = `https://bollyflix.pw/?s=${encodeURIComponent(movie.name)}`;
+
         card.innerHTML = `
-            <img src="${movie.img}" alt="${movie.name}">
-            <div class="info"><h3>${movie.name}</h3></div>
+            <div class="movie-title">${movie.name}</div>
             <div class="links">
-                <a href="https://vidsrc.to/embed/movie/${movie.name}" target="_blank" class="btn b-watch">Watch HD</a>
-                <a href="https://www.google.com/search?q=index+of+${movie.name}" target="_blank" class="btn b-down">Google Server</a>
+                <a href="${server1}" target="_blank" class="btn btn-fast">Server 1 (Fast)</a>
+                <a href="${server2}" target="_blank" class="btn btn-hd">Server 2 (HD)</a>
             </div>
         `;
-        grid.appendChild(card);
+        listContainer.appendChild(card);
     });
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Built for Public</p>
+    <p>&copy; 2026 Growth Cinema | Worldwide Public Portal</p>
 </footer>
 
 </body>
