@@ -1,109 +1,92 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | Direct Access</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; }
-        
-        header { 
-            background: linear-gradient(to bottom, #ff0000, #000);
-            padding: 30px 10px; text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growth Cinema</title>
 
-        .search-area {
-            position: sticky; top: 0; background: #000; padding: 15px;
-            border-bottom: 1px solid #222; z-index: 1000;
-        }
+<style>
+body { font-family: Arial; background:#000; color:#fff; }
+header { background:red; padding:20px; text-align:center; }
 
-        #movieSearch {
-            width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #ff0000;
-            background: #111; color: #fff; font-size: 16px;
-        }
+.search-area {
+    position: sticky; top:0; background:#000; padding:10px;
+}
+input {
+    width:100%; padding:10px; font-size:16px;
+}
 
-        .container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px; padding: 15px;
-        }
+.container {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:10px;
+    padding:10px;
+}
 
-        .movie-card {
-            background: #111; border: 1px solid #333; border-radius: 8px;
-            padding: 15px; text-align: center;
-        }
+.card {
+    background:#111; padding:10px; border-radius:6px;
+    text-align:center;
+}
 
-        .m-name { font-size: 0.9rem; font-weight: bold; margin-bottom: 12px; display: block; color: #ffcc00; }
-
-        .dl-btn {
-            display: block; text-decoration: none; padding: 10px; border-radius: 4px;
-            font-size: 11px; font-weight: bold; color: #fff; margin-top: 5px;
-            text-transform: uppercase;
-        }
-
-        .tg-link { background: #0088cc; } /* Telegram Server */
-        .tb-link { background: #ff9900; } /* Terabox Server */
-
-        footer { text-align: center; padding: 30px; color: #444; font-size: 12px; }
-    </style>
+a {
+    display:block;
+    margin-top:8px;
+    padding:8px;
+    background:red;
+    color:#fff;
+    text-decoration:none;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <h1>Growth Cinema</h1>
-    <p>Direct Download - No Website Blocks</p>
+<h1>Growth Cinema</h1>
 </header>
 
 <div class="search-area">
-    <input type="text" id="movieSearch" placeholder="1000+ Movies mein dhoondein..." onkeyup="searchMovie()">
+<input type="text" id="search" placeholder="Search movie..." onkeyup="searchMovie()">
 </div>
 
-<div class="container" id="movieGrid">
-    </div>
+<div class="container" id="grid"></div>
 
 <script>
-    // Aap yahan coma (,) laga kar jitne chahein (1000+) naam daal sakte hain
-    const allMovies = [
-        "Pushpa 2: The Rule", "Singham Again", "Deadpool & Wolverine", "Kalki 2898 AD", 
-        "Animal", "Jawan", "Stree 2", "Gadar 2", "Leo", "Salaar", 
-        "KGF Chapter 2", "RRR", "Pathaan", "Vikram", "The Batman",
-        "Avatar: Way of Water", "Fast X", "Oppenheimer", "Money Heist", "Stranger Things"
-        // Isi tarah 1000 movies ke naam yahan add karein
-    ];
 
-    const grid = document.getElementById('movieGrid');
+const movies = [
+"Pushpa 2","Jawan","RRR","KGF Chapter 2",
+"Animal","Pathaan","Salaar","Leo",
+"Avatar","Oppenheimer","Fast X"
+];
 
-    function load(data) {
-        grid.innerHTML = '';
-        data.forEach(name => {
-            const div = document.createElement('div');
-            div.className = 'movie-card';
-            
-            // Ye links kabhi block nahi hote kyunki ye app-based search hain
-            const telegramLink = `https://t.me/s/MovieSeries_Links_Hub?q=${encodeURIComponent(name)}`;
-            const teraboxLink = `https://www.terabox.com/webmaster?key=${encodeURIComponent(name)}`;
+const grid = document.getElementById("grid");
 
-            div.innerHTML = `
-                <span class="m-name">${name}</span>
-                <a href="${telegramLink}" target="_blank" class="dl-btn tg-link">Telegram Download</a>
-                <a href="${teraboxLink}" target="_blank" class="dl-btn tb-link">Terabox Server</a>
-            `;
-            grid.appendChild(div);
-        });
-    }
+function load(data){
+    grid.innerHTML="";
+    data.forEach(name=>{
+        let link = "https://www.youtube.com/results?search_query=" + encodeURIComponent(name + " full movie");
 
-    function searchMovie() {
-        const query = document.getElementById('movieSearch').value.toLowerCase();
-        const filtered = allMovies.filter(m => m.toLowerCase().includes(query));
-        load(filtered);
-    }
+        let div = document.createElement("div");
+        div.className="card";
 
-    load(allMovies);
+        div.innerHTML = `
+        <b>${name}</b>
+        <a href="${link}" target="_blank">Watch</a>
+        `;
+
+        grid.appendChild(div);
+    });
+}
+
+function searchMovie(){
+    let q = document.getElementById("search").value.toLowerCase();
+    let filtered = movies.filter(m=>m.toLowerCase().includes(q));
+    load(filtered);
+}
+
+load(movies);
+
 </script>
-
-<footer>
-    <p>&copy; 2026 Growth Cinema | Worldwide Fast Access</p>
-</footer>
 
 </body>
 </html>
