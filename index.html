@@ -3,86 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrowthTrade Hub - Live Markets</title>
+    <title>GrowthTrade Hub - Pro Live Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.8); }
-        /* Widget container adjustment */
-        .tv-widget-container { height: 400px; width: 100%; border-radius: 12px; overflow: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }
+        .gradient-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-bottom: 2px solid #334155; }
+        .card-dark { background: rgba(30, 41, 59, 0.7); border: 1px solid #334155; backdrop-filter: blur(10px); }
+        .live-dot { height: 8px; width: 8px; background-color: #ff4d4d; border-radius: 50%; display: inline-block; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 </head>
-<body class="text-gray-900">
+<body>
 
-<header class="gradient-bg text-white shadow-2xl sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4">
-        <nav class="flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center"><i class="fas fa-chart-line text-2xl"></i></div>
-                <div>
-                    <h1 class="text-2xl font-bold">GrowthTrade Hub</h1>
-                    <p class="text-xs opacity-90">Live Markets & Community</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button class="px-6 py-2 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/30 transition-all duration-300">Join Community</button>
-            </div>
-        </nav>
+<header class="gradient-bg py-4 sticky top-0 z-50">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-bolt text-yellow-400 text-2xl"></i>
+            <h1 class="text-xl font-extrabold tracking-tight">GROWTH TRADE <span class="text-blue-400">PRO</span></h1>
+        </div>
+        <div class="flex items-center space-x-2 text-sm font-medium">
+            <span class="live-dot"></span>
+            <span class="text-gray-400">MARKET LIVE</span>
+        </div>
     </div>
 </header>
 
-<main class="container mx-auto px-4 py-8 max-w-7xl">
-    <div class="mb-6 rounded-xl overflow-hidden shadow-lg border border-gray-200">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-            {
-            "symbols": [
-                {"proName": "FOREXCOM:SPX500", "title": "S&P 500"},
-                {"proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100"},
-                {"proName": "FX_IDC:INRUSD", "title": "INR/USD"},
-                {"proName": "BITSTAMP:BTCUSD", "title": "Bitcoin"},
-                {"proName": "BITSTAMP:ETHUSD", "title": "Ethereum"}
-            ],
-            "showSymbolLogo": true, "colorTheme": "light", "isTransparent": false, "displayMode": "adaptive", "locale": "en"
-            }
-            </script>
-        </div>
+<div class="border-b border-gray-800">
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+        "symbols": [
+            {"proName": "FOREXCOM:SPX500", "title": "S&P 500"},
+            {"proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100"},
+            {"proName": "FX_IDC:INRUSD", "title": "USD/INR"},
+            {"proName": "BITSTAMP:BTCUSD", "title": "BTC/USD"},
+            {"proName": "BITSTAMP:ETHUSD", "title": "ETH/USD"},
+            {"proName": "BINANCE:SOLUSDT", "title": "SOL/USDT"}
+        ],
+        "showSymbolLogo": true, "colorTheme": "dark", "isTransparent": true, "displayMode": "adaptive", "locale": "en"
+        }
+        </script>
     </div>
+</div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
-        <div class="lg:col-span-1 space-y-6">
-            <div class="glass-effect rounded-2xl p-4 border border-white/50 shadow-xl">
-                <h3 class="font-semibold text-lg mb-4 flex items-center text-indigo-700">
-                    <i class="fas fa-globe-americas mr-2"></i> Global Indices
-                </h3>
+<main class="container mx-auto px-4 py-6 max-w-7xl">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <div class="lg:col-span-3 space-y-6">
+            <div class="card-dark rounded-2xl p-4 shadow-2xl">
+                <h3 class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">Live Global Markets</h3>
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
                     {
-                    "colorTheme": "light", "dateRange": "12M", "showChart": false, "locale": "en", "width": "100%", "height": 300, "largeChartUrl": "", "isTransparent": true, "showSymbolLogo": true,
-                    "tabs": [
-                        { "title": "Indices", "symbols": [
-                            {"s": "FOREXCOM:SPX500", "d": "S&P 500"},
-                            {"s": "FOREXCOM:NSXUSD", "d": "Nasdaq"},
-                            {"s": "INDEX:DAX", "d": "DAX Index"},
-                            {"s": "INDEX:NI225", "d": "Nikkei 225"}
-                        ]}
-                    ]
+                    "colorTheme": "dark", "dateRange": "12M", "showChart": false, "locale": "en", "width": "100%", "height": 350, "isTransparent": true, "showSymbolLogo": true,
+                    "tabs": [{ "title": "Indices", "symbols": [
+                        {"s": "FOREXCOM:SPX500", "d": "S&P 500"},
+                        {"s": "FOREXCOM:NSXUSD", "d": "Nasdaq 100"},
+                        {"s": "INDEX:DAX", "d": "DAX Index"},
+                        {"s": "INDEX:NI225", "d": "Nikkei 225"},
+                        {"s": "INDEX:HSI", "d": "Hang Seng"}
+                    ]}]
                     }
                     </script>
                 </div>
             </div>
 
-            <div class="glass-effect rounded-2xl p-4 border border-white/50 shadow-xl">
-                <h4 class="font-semibold mb-4 text-orange-600">🔥 Market Movers</h4>
+            <div class="card-dark rounded-2xl p-4 border-l-4 border-blue-500">
+                <h3 class="text-sm font-bold text-gray-400 mb-2 uppercase">Trading Tip / Sentiment</h3>
                 <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
                     {
-                    "colorTheme": "light", "dateRange": "12M", "exchange": "US", "showChart": false, "locale": "en", "width": "100%", "height": 300, "largeChartUrl": "", "isTransparent": true, "showSymbolLogo": true
+                    "interval": "1m", "width": "100%", "isTransparent": true, "height": 320, "symbol": "NASDAQ:AAPL", "showIntervalTabs": true, "locale": "en", "colorTheme": "dark"
+                    }
+                    </script>
+                </div>
+                <p class="text-[10px] text-gray-500 mt-2 text-center">Based on real-time technical oscillators.</p>
+            </div>
+        </div>
+
+        <div class="lg:col-span-6 space-y-6">
+            <div class="card-dark rounded-2xl p-2 shadow-2xl overflow-hidden" style="height: 500px;">
+                <div id="tradingview_pro_chart" style="height: 100%;"></div>
+            </div>
+
+            <div class="card-dark rounded-2xl p-4">
+                <h3 class="font-bold mb-4 flex items-center"><i class="fas fa-rss mr-2 text-orange-500"></i> Breaking Live News</h3>
+                <div class="tradingview-widget-container">
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                    {
+                    "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "displayMode": "regular", "width": "100%", "height": 450, "locale": "en"
                     }
                     </script>
                 </div>
@@ -90,31 +102,25 @@
         </div>
 
         <div class="lg:col-span-3 space-y-6">
-            <div class="bg-white rounded-2xl p-1 shadow-2xl border border-gray-200 overflow-hidden" style="height: 500px;">
-                <div id="tradingview_main" style="height: 100%;"></div>
+            <div class="card-dark rounded-2xl p-4 shadow-xl">
+                <h4 class="text-sm font-bold text-gray-400 mb-4 uppercase">Top Movers (Live)</h4>
+                <div class="tradingview-widget-container">
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+                    {
+                    "colorTheme": "dark", "dateRange": "12M", "exchange": "US", "showChart": false, "locale": "en", "width": "100%", "height": 400, "isTransparent": true, "showSymbolLogo": true
+                    }
+                    </script>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white rounded-2xl p-4 shadow-xl border border-gray-100">
-                    <h3 class="font-bold mb-4 flex items-center"><i class="fas fa-newspaper mr-2 text-blue-500"></i> Market News</h3>
-                    <div class="tradingview-widget-container">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                        {
-                        "feedMode": "all_symbols", "colorTheme": "light", "isTransparent": true, "displayMode": "regular", "width": "100%", "height": 400, "locale": "en"
-                        }
-                        </script>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-4 shadow-xl border border-gray-100">
-                    <h3 class="font-bold mb-4 flex items-center"><i class="fas fa-calendar-alt mr-2 text-purple-500"></i> Econ Calendar</h3>
-                    <div class="tradingview-widget-container">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                        {
-                        "colorTheme": "light", "isTransparent": true, "width": "100%", "height": 400, "locale": "en", "importanceFilter": "-1,0,1"
-                        }
-                        </script>
-                    </div>
+            <div class="card-dark rounded-2xl p-4">
+                <h4 class="text-sm font-bold text-gray-400 mb-4 uppercase">Economic Calendar</h4>
+                <div class="tradingview-widget-container">
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                    {
+                    "colorTheme": "dark", "isTransparent": true, "width": "100%", "height": 350, "locale": "en", "importanceFilter": "-1,0,1"
+                    }
+                    </script>
                 </div>
             </div>
         </div>
@@ -124,7 +130,17 @@
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script type="text/javascript">
   new TradingView.widget({
-  "width": "100%", "height": "100%", "symbol": "NASDAQ:AAPL", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "locale": "en", "toolbar_bg": "#f1f3f6", "enable_publishing": false, "hide_side_toolbar": false, "allow_symbol_change": true, "container_id": "tradingview_main"
+    "autosize": true,
+    "symbol": "BINANCE:BTCUSDT",
+    "interval": "15",
+    "timezone": "Etc/UTC",
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+    "toolbar_bg": "#f1f3f6",
+    "enable_publishing": false,
+    "allow_symbol_change": true,
+    "container_id": "tradingview_pro_chart"
   });
 </script>
 
