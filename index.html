@@ -9,100 +9,100 @@
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; }
         
         header { 
-            background: linear-gradient(180deg, #e50914 0%, #000 100%);
-            padding: 30px 10px; text-align: center;
+            background: #e50914; padding: 25px 10px; text-align: center;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
         }
 
-        .search-container {
-            padding: 15px; position: sticky; top: 0; background: #000; z-index: 100;
+        .search-bar {
+            position: sticky; top: 0; background: #000; padding: 15px; text-align: center; border-bottom: 1px solid #333;
         }
 
-        #movieSearch {
-            width: 100%; padding: 12px; border-radius: 25px; border: 2px solid #e50914;
-            background: #111; color: #fff; outline: none;
+        #findMovie {
+            width: 90%; max-width: 500px; padding: 12px 20px; border-radius: 30px;
+            border: 2px solid #e50914; background: #111; color: #fff; font-size: 16px;
         }
 
         .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px; padding: 15px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px; padding: 20px;
         }
 
         .movie-card {
-            background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
-            padding: 10px; text-align: center; display: flex; flex-direction: column;
+            background: #141414; border-radius: 8px; border: 1px solid #333;
+            padding: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between;
         }
 
-        .movie-name {
-            font-size: 0.85rem; font-weight: bold; margin-bottom: 10px;
-            min-height: 35px; color: #ffcc00;
+        .title { font-size: 0.9rem; font-weight: bold; margin-bottom: 15px; color: #ffcc00; min-height: 40px; }
+
+        .btn {
+            text-decoration: none; padding: 10px; border-radius: 5px; font-size: 11px;
+            font-weight: bold; color: #fff; margin-top: 5px; display: block;
         }
 
-        .dl-btn {
-            text-decoration: none; padding: 8px; border-radius: 4px;
-            font-size: 11px; font-weight: bold; color: #fff;
-            background: #e50914; margin-bottom: 5px;
-        }
+        /* Direct Working Servers */
+        .s1 { background: #27ae60; } /* Server 1 */
+        .s2 { background: #2980b9; } /* Server 2 */
 
-        .dl-btn.alt { background: #2980b9; }
-
-        footer { text-align: center; padding: 20px; color: #444; font-size: 11px; }
+        footer { text-align: center; padding: 40px; color: #666; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Growth Cinema</h1>
-    <p>Direct Download - 1000+ Movies</p>
+    <h1>GROWTH CINEMA</h1>
+    <p>Duniya ki har Movie yahan milegi</p>
 </header>
 
-<div class="search-container">
-    <input type="text" id="movieSearch" placeholder="Search from 1000+ movies..." onkeyup="filterMovies()">
+<div class="search-bar">
+    <input type="text" id="findMovie" placeholder="Movie ka naam likhein..." onkeyup="search()">
 </div>
 
-<div class="container" id="movieGrid">
+<div class="container" id="grid">
     </div>
 
 <script>
-    // Maine yahan trending movies ki badi list di hai. 
-    // Aap is list mein 1000+ movies ke naam asani se add kar sakte hain.
-    const movies = [
-        "Pushpa 2: The Rule", "Singham Again", "Deadpool & Wolverine", "Kalki 2898 AD", "Animal", "Jawan", "Stree 2", "Gadar 2", "Leo", "Salaar", "KGF Chapter 2", "RRR", "Pathaan", "Vikram", "The Batman", "Avatar 2", "Fast X", "Oppenheimer", "Money Heist", "Stranger Things", "Brahmastra", "Drishyam 2", "Kantara", "Ponniyin Selvan", "Major", "Bhool Bhulaiyaa 2", "Vikram Vedha", "Bhediya", "Cirkus", "Adipurush"
-        // Isi tarah aap comma (,) laga kar 1000 naam daal sakte hain.
+    // Is list mein aap 1000 movies ke naam coma (,) laga kar add kar sakte hain
+    const movieData = [
+        "Pushpa 2: The Rule", "Singham Again", "Deadpool & Wolverine", "Kalki 2898 AD", 
+        "Animal", "Jawan", "Stree 2", "Gadar 2", "Leo", "Salaar", 
+        "KGF Chapter 2", "RRR", "Brahmastra", "Pathaan", "Vikram", 
+        "Avatar: Way of Water", "Fast X", "Oppenheimer", "The Batman", "Spider-Man No Way Home",
+        "Kantata", "Drishyam 2", "Bhool Bhulaiyaa 2", "Major", "Vikram Vedha"
+        // Bas yahan naye naam likhte jaiye...
     ];
 
-    const grid = document.getElementById('movieGrid');
+    const grid = document.getElementById('grid');
 
-    function loadMovies(data) {
+    function display(list) {
         grid.innerHTML = '';
-        data.forEach(name => {
-            const card = document.createElement('div');
-            card.className = 'movie-card';
+        list.forEach(name => {
+            const div = document.createElement('div');
+            div.className = 'movie-card';
             
-            // Ye links direct un websites ke search page par le jayenge
-            const link1 = `https://vegamovies.ngo/?s=${encodeURIComponent(name)}`;
-            const link2 = `https://bollyflix.pw/?s=${encodeURIComponent(name)}`;
+            // Ye links Proxy sites ka use karte hain taaki block na hon
+            const link1 = `https://unblockit.how/vegamovies?s=${encodeURIComponent(name)}`;
+            const link2 = `https://moviesmod.info/?s=${encodeURIComponent(name)}`;
 
-            card.innerHTML = `
-                <div class="movie-name">${name}</div>
-                <a href="${link1}" target="_blank" class="dl-btn">Download Server 1</a>
-                <a href="${link2}" target="_blank" class="dl-btn alt">Download Server 2</a>
+            div.innerHTML = `
+                <div class="title">${name}</div>
+                <a href="${link1}" target="_blank" class="btn s1">Server 1 (Direct)</a>
+                <a href="${link2}" target="_blank" class="btn s2">Server 2 (Mirror)</a>
             `;
-            grid.appendChild(card);
+            grid.appendChild(div);
         });
     }
 
-    function filterMovies() {
-        const term = document.getElementById('movieSearch').value.toLowerCase();
-        const filtered = movies.filter(m => m.toLowerCase().includes(term));
-        loadMovies(filtered);
+    function search() {
+        const val = document.getElementById('findMovie').value.toLowerCase();
+        const filtered = movieData.filter(m => m.toLowerCase().includes(val));
+        display(filtered);
     }
 
-    loadMovies(movies);
+    display(movieData);
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Public Launch Version</p>
+    <p>&copy; 2026 Growth Cinema | Built for Public Launch</p>
 </footer>
 
 </body>
