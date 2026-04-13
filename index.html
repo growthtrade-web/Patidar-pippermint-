@@ -3,96 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | Unlimited Movies</title>
+    <title>Growth Cinema | Global Movie Database</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; }
         
         header { 
-            background: linear-gradient(to bottom, #ff0000, #000);
-            padding: 50px 20px; text-align: center;
+            background: linear-gradient(180deg, #db0000 0%, #000 100%);
+            padding: 40px 20px; text-align: center;
+        }
+
+        .search-box { 
+            text-align: center; padding: 20px; position: sticky; 
+            top: 0; background: #000; z-index: 100; 
+        }
+        #search { 
+            padding: 15px; width: 90%; max-width: 500px; 
+            border-radius: 30px; border: 2px solid #e50914; 
+            background: #111; color: #fff; outline: none; font-size: 16px;
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 15px; padding: 15px;
         }
 
-        .card { background: #111; border-radius: 10px; overflow: hidden; border: 1px solid #222; transition: 0.3s; }
-        .card:hover { border-color: #ff0000; transform: scale(1.03); }
-        .card img { width: 100%; height: 210px; object-fit: cover; background: #222; }
+        .card { background: #111; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
+        .card img { width: 100%; height: 230px; object-fit: cover; background: #222; }
         
-        .info { padding: 8px; text-align: center; }
-        .info h3 { font-size: 0.8rem; margin-bottom: 8px; height: 32px; overflow: hidden; color: #fff; }
+        .info { padding: 10px; text-align: center; }
+        .info h3 { font-size: 0.9rem; margin-bottom: 10px; height: 35px; overflow: hidden; }
 
-        .links { display: flex; flex-direction: column; gap: 5px; padding: 8px; }
+        .links { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
         .btn {
-            text-decoration: none; padding: 6px; border-radius: 4px;
-            font-size: 10px; font-weight: bold; text-align: center;
+            text-decoration: none; padding: 8px; border-radius: 5px;
+            font-size: 12px; font-weight: bold; text-align: center; transition: 0.2s;
         }
-        .b1 { background: #e50914; color: #fff; }
-        .b2 { background: #f39c12; color: #000; }
+        /* New Working Servers */
+        .server-1 { background: #e50914; color: #fff; } /* Vegamovies style */
+        .server-2 { background: #0056b3; color: #fff; } /* Bollyflix style */
+        .server-3 { background: #27ae60; color: #fff; } /* Video Server */
 
-        footer { text-align: center; padding: 40px; color: #444; font-size: 12px; border-top: 1px solid #222; }
+        footer { text-align: center; padding: 30px; color: #555; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Growth Cinema</h1>
-    <p>World's Largest Movie Collection</p>
+    <p>Search Any Movie in the World</p>
 </header>
 
-<div class="container" id="movie-list">
+<div class="search-box">
+    <input type="text" id="search" placeholder="Type Movie Name & Press Enter..." onkeypress="handleSearch(event)">
+    <p style="font-size: 10px; margin-top: 10px; color: #888;">Note: Search movie to get automatic download links.</p>
+</div>
+
+<div class="container" id="movie-grid">
     </div>
 
 <script>
-    // Maine yahan 40+ trending movies aur series daal di hain
-    const movies = [
-        { name: "Pushpa 2: The Rule", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
-        { name: "Singham Again", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" || "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400" },
-        { name: "Deadpool & Wolverine", img: "https://image.tmdb.org/t/p/w500/8cdWjvZQUvS6UvU6z8UvU6z8UvU.jpg" || "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=400" },
-        { name: "Jawan", img: "https://image.tmdb.org/t/p/w500/n8Z89I9UvU6z8UvU6z8UvU6z8Uv.jpg" || "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400" },
-        { name: "Kalki 2898 AD", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { name: "Spider-Man: No Way Home", img: "https://image.tmdb.org/t/p/w500/1g0m2YpScyIzXvW9hHozCLJbiST.jpg" },
-        { name: "Stranger Things", img: "https://image.tmdb.org/t/p/w500/49WfT1U6NX6YmPOCtz9t99696Yg.jpg" },
-        { name: "Squid Game", img: "https://image.tmdb.org/t/p/w500/d99NX6YmPOCtz9t99696Yg.jpg" || "https://images.pexels.com/photos/274937/pexels-photo-274937.jpeg?auto=compress&cs=tinysrgb&w=400" },
-        { name: "Money Heist", img: "https://images.pexels.com/photos/6543411/pexels-photo-6543411.jpeg?auto=compress&cs=tinysrgb&w=400" },
-        { name: "All of Us Are Dead", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { name: "Animal", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
-        { name: "Pathaan", img: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400" },
-        { name: "The Batman", img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=400" },
-        { name: "Inception", img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400" },
-        { name: "Interstellar", img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400" },
-        { name: "RRR", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
-        { name: "Bahubali 2", img: "https://images.unsplash.com/photo-1596720426673-e483d74482d7?w=400" },
-        { name: "KGF Chapter 2", img: "https://images.unsplash.com/photo-1620336655055-088d06e36bf0?w=400" },
-        { name: "Avatar: Way of Water", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400" },
-        { name: "Fast X", img: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400" }
-    ];
+    const key = '3fd2be37162b59b89396193d960052d3';
+    const imgPath = 'https://image.tmdb.org/t/p/w500';
 
-    // Is loop ko hum 2 baar chalayenge taaki website bhari hui lage (40 items)
-    const list = document.getElementById('movie-list');
-    const fullList = [...movies, ...movies]; // Data ko double kar diya
+    // 1. Movies Load karne ka function
+    async function fetchMovies(url) {
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            displayMovies(data.results);
+        } catch (e) {
+            console.log("Error");
+        }
+    }
 
-    fullList.forEach(movie => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <img src="${movie.img}" alt="${movie.name}">
-            <div class="info"><h3>${movie.name}</h3></div>
-            <div class="links">
-                <a href="https://moviebox.site/search/${movie.name}" target="_blank" class="btn b1">MovieBox Server</a>
-                <a href="https://ssrmovies.tools/?s=${movie.name}" target="_blank" class="btn b2">SSRMovies Server</a>
-            </div>
-        `;
-        list.appendChild(card);
-    });
+    // 2. Movies dikhane ka logic
+    function displayMovies(movies) {
+        const grid = document.getElementById('movie-grid');
+        grid.innerHTML = '';
+        
+        movies.forEach(m => {
+            const name = m.title || m.name;
+            const poster = m.poster_path ? imgPath + m.poster_path : 'https://via.placeholder.com/500x750?text=No+Photo';
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <img src="${poster}" alt="${name}">
+                <div class="info"><h3>${name}</h3></div>
+                <div class="links">
+                    <a href="https://vegamovies.ngo/?s=${name}" target="_blank" class="btn server-1">Server 1 (High Speed)</a>
+                    <a href="https://bollyflix.pw/?s=${name}" target="_blank" class="btn server-2">Server 2 (HD)</a>
+                    <a href="https://vidsrc.to/embed/movie/${m.id}" target="_blank" class="btn server-3">Watch Online</a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // 3. Search handle karna
+    function handleSearch(event) {
+        if (event.key === "Enter") {
+            const query = document.getElementById('search').value;
+            if (query) {
+                fetchMovies(`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${query}`);
+            }
+        }
+    }
+
+    // Default Trending Movies (Starting mein dikhane ke liye)
+    fetchMovies(`https://api.themoviedb.org/3/trending/all/week?api_key=${key}`);
+
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Worldwide Movies Database</p>
+    <p>&copy; 2026 Growth Cinema | Worldwide Database System</p>
 </footer>
 
 </body>
