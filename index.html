@@ -3,103 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | Watch & Download Movies</title>
+    <title>Growth Cinema | Auto-Update Movies</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #0b0e11; color: white; }
+        body { font-family: 'Arial', sans-serif; background-color: #050505; color: white; }
         
         header { 
-            background: linear-gradient(to bottom, #e50914, #0b0e11);
-            padding: 50px 20px; text-align: center;
+            background: linear-gradient(to bottom, #ff0000, #050505);
+            padding: 40px 20px; text-align: center;
         }
 
-        .search-container { margin: 20px; text-align: center; }
-        #search { padding: 12px; width: 300px; border-radius: 25px; border: none; outline: none; }
+        .search-section { 
+            position: sticky; top: 0; z-index: 100;
+            background: #050505; padding: 15px; text-align: center; 
+        }
+
+        #search { 
+            padding: 12px 20px; width: 80%; max-width: 500px; 
+            border-radius: 30px; border: 2px solid #333; 
+            background: #111; color: white; outline: none;
+        }
+
+        #search:focus { border-color: #ff0000; }
 
         .movies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px; padding: 15px; max-width: 1200px; margin: 0 auto;
         }
 
         .movie-card {
-            background: #1c1f23; border-radius: 10px; overflow: hidden;
-            transition: 0.3s; border: 1px solid #333;
+            background: #111; border-radius: 8px; overflow: hidden;
+            transition: 0.3s; position: relative;
         }
 
-        .movie-card:hover { transform: scale(1.05); border-color: #e50914; }
+        .movie-card img { width: 100%; height: 240px; object-fit: cover; }
 
-        .movie-card img { width: 100%; height: 300px; object-fit: cover; }
+        .info { padding: 10px; text-align: center; }
+        .info h3 { font-size: 0.9rem; margin-bottom: 8px; height: 35px; overflow: hidden; }
 
-        .movie-info { padding: 15px; text-align: center; }
-        .movie-info h3 { font-size: 1rem; margin-bottom: 10px; height: 40px; overflow: hidden; }
-
-        .download-btns { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
+        .links { display: flex; flex-direction: column; gap: 5px; padding: 5px; }
         
         .btn {
-            text-decoration: none; padding: 8px; border-radius: 5px;
-            font-size: 13px; font-weight: bold; text-align: center;
+            text-decoration: none; padding: 8px; border-radius: 4px;
+            font-size: 11px; font-weight: bold; text-align: center;
         }
 
-        .moviebox { background: #e50914; color: white; }
-        .ssrmovies { background: #ffc107; color: #000; }
+        .m-box { background: #e20813; color: white; }
+        .ssr { background: #f39c12; color: black; }
 
-        footer { text-align: center; padding: 40px; color: #777; font-size: 14px; }
+        footer { text-align: center; padding: 30px; color: #555; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Growth Cinema</h1>
-    <p>Watch World's Best Movies & Series</p>
+    <p>New Movies & Series Updated Daily</p>
 </header>
 
-<div class="search-container">
-    <input type="text" id="search" placeholder="Search Movie Name...">
+<div class="search-section">
+    <form id="form">
+        <input type="text" id="search" placeholder="Search Movie or Series...">
+    </form>
 </div>
 
-<div class="movies-grid" id="movie-list">
+<div class="movies-grid" id="main">
     </div>
 
 <script>
-    // TMDB API Key (Ye free hai, maine test ke liye ek demo category set ki hai)
-    const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be37162b59b89396193d960052d3';
-    const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
+    const API_KEY = '3fd2be37162b59b89396193d960052d3';
+    const API_URL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}&page=1`;
+    const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query="`;
+    const IMG_PATH = 'https://image.tmdb.org/t/p/w500';
 
-    const movieList = document.getElementById('movie-list');
+    const main = document.getElementById('main');
+    const form = document.getElementById('form');
+    const search = document.getElementById('search');
 
-    async function getMovies() {
-        const res = await fetch(API_URL);
+    // Step 1: Movies load karne ka function
+    getMovies(API_URL);
+
+    async function getMovies(url) {
+        const res = await fetch(url);
         const data = await res.json();
         showMovies(data.results);
     }
 
+    // Step 2: Movies ko screen par dikhane ka function
     function showMovies(movies) {
-        movieList.innerHTML = '';
+        main.innerHTML = '';
+
         movies.forEach((movie) => {
             const { title, poster_path } = movie;
             const movieEl = document.createElement('div');
             movieEl.classList.add('movie-card');
 
+            // Agar poster nahi hai toh placeholder dikhayega
+            const imageSrc = poster_path ? IMG_PATH + poster_path : 'https://via.placeholder.com/500x750?text=No+Image';
+
             movieEl.innerHTML = `
-                <img src="${IMG_PATH + poster_path}" alt="${title}">
-                <div class="movie-info">
+                <img src="${imageSrc}" alt="${title}">
+                <div class="info">
                     <h3>${title}</h3>
                 </div>
-                <div class="download-btns">
-                    <a href="https://moviebox.site/search/${title}" target="_blank" class="btn moviebox">Server 1: MovieBox</a>
-                    <a href="https://ssrmovies.tools/?s=${title}" target="_blank" class="btn ssrmovies">Server 2: SSRMovies</a>
+                <div class="links">
+                    <a href="https://moviebox.site/search/${title}" target="_blank" class="btn m-box">MovieBox Server</a>
+                    <a href="https://ssrmovies.tools/?s=${title}" target="_blank" class="btn ssr">SSRMovies Server</a>
                 </div>
             `;
-            movieList.appendChild(movieEl);
+            main.appendChild(movieEl);
         });
     }
 
-    getMovies();
+    // Step 3: Search bar ko working banana
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const searchTerm = search.value;
+
+        if(searchTerm && searchTerm !== '') {
+            getMovies(SEARCH_API + searchTerm);
+            search.value = '';
+        } else {
+            window.location.reload();
+        }
+    });
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Entertainment Non-Stop</p>
+    <p>&copy; 2026 Growth Cinema | Auto-Daily Updates</p>
 </footer>
 
 </body>
