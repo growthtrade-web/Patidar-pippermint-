@@ -3,82 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | Home</title>
+    <title>Growth Cinema | Watch & Download</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Arial', sans-serif; background: #000; color: #fff; }
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; line-height: 1.6; }
         
         header { 
-            background: linear-gradient(to bottom, #ff0000, #000);
-            padding: 40px 20px; text-align: center;
+            background: linear-gradient(180deg, #e50914 0%, #000 100%);
+            padding: 60px 20px; text-align: center;
+        }
+
+        .search-container {
+            position: sticky; top: 0; background: #000; padding: 20px;
+            z-index: 1000; text-align: center; border-bottom: 1px solid #222;
+        }
+
+        #search {
+            width: 90%; max-width: 600px; padding: 15px 25px;
+            border-radius: 50px; border: 2px solid #e50914;
+            background: #111; color: #fff; font-size: 18px; outline: none;
         }
 
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px; padding: 20px;
+            gap: 20px; padding: 25px; max-width: 1200px; margin: 0 auto;
         }
 
-        .card { background: #111; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
-        .card img { width: 100%; height: 230px; object-fit: cover; }
+        .card { background: #141414; border-radius: 12px; overflow: hidden; border: 1px solid #333; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: #e50914; }
+        .card img { width: 100%; height: 240px; object-fit: cover; }
         
-        .info { padding: 10px; text-align: center; }
-        .info h3 { font-size: 0.9rem; margin-bottom: 10px; }
+        .info { padding: 12px; text-align: center; }
+        .info h3 { font-size: 0.9rem; margin-bottom: 10px; height: 40px; overflow: hidden; }
 
-        .links { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
+        .download-box { display: flex; flex-direction: column; gap: 10px; padding: 10px; }
         .btn {
-            text-decoration: none; padding: 8px; border-radius: 5px;
-            font-size: 11px; font-weight: bold; text-align: center;
+            text-decoration: none; padding: 10px; border-radius: 6px;
+            font-size: 12px; font-weight: bold; text-align: center; color: #fff;
         }
-        .b1 { background: #e50914; color: #fff; }
-        .b2 { background: #3498db; color: #fff; }
+        /* Servers jo 100% chalte hain */
+        .v-link { background: #ff9900; color: #000; } /* Amazon style server */
+        .m-link { background: #e50914; } /* Netflix style server */
+        .s-link { background: #3498db; } /* Watch server */
 
-        footer { text-align: center; padding: 30px; color: #444; border-top: 1px solid #222; }
+        footer { text-align: center; padding: 50px 20px; color: #666; font-size: 13px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Growth Cinema</h1>
-    <p>Watch Latest Movies & Series</p>
+    <p>Duniya ki har movie yahan milegi</p>
 </header>
 
-<div class="container" id="movie-grid">
+<div class="search-container">
+    <input type="text" id="search" placeholder="Movie ka naam likhein (e.g. Pushpa 2)" onkeyup="searchGlobal()">
+</div>
+
+<div class="container" id="display">
     </div>
 
 <script>
-    // Ye data 100% chalega kyunki ye direct code mein hai
-    const movieData = [
-        { title: "Pushpa 2: The Rule", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
-        { title: "Singham Again", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { title: "Deadpool & Wolverine", img: "https://image.tmdb.org/t/p/w500/8cdWjvZQUvS6UvU6z8UvU6z8UvU.jpg" },
-        { title: "Kalki 2898 AD", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { title: "Animal", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
-        { title: "Jawan", img: "https://image.tmdb.org/t/p/w500/n8Z89I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
-        { title: "Spider-Man: No Way Home", img: "https://image.tmdb.org/t/p/w500/1g0m2YpScyIzXvW9hHozCLJbiST.jpg" },
-        { title: "Stranger Things", img: "https://image.tmdb.org/t/p/w500/49WfT1U6NX6YmPOCtz9t99696Yg.jpg" }
-    ];
+    // TMDB Key jo movies ka data fetch karegi
+    const API_KEY = '3fd2be37162b59b89396193d960052d3';
+    
+    async function loadInitial() {
+        const res = await fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`);
+        const data = await res.json();
+        render(data.results);
+    }
 
-    const grid = document.getElementById('movie-grid');
+    async function searchGlobal() {
+        const q = document.getElementById('search').value;
+        if(q.length > 2) {
+            const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${q}`);
+            const data = await res.json();
+            render(data.results);
+        }
+    }
 
-    // Movies ko display karne ka loop
-    movieData.forEach(movie => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <img src="${movie.img}" alt="${movie.title}">
-            <div class="info"><h3>${movie.title}</h3></div>
-            <div class="links">
-                <a href="https://vegamovies.ngo/?s=${movie.title}" target="_blank" class="btn b1">Download Server 1</a>
-                <a href="https://bollyflix.pw/?s=${movie.title}" target="_blank" class="btn b2">Download Server 2</a>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
+    function render(list) {
+        const box = document.getElementById('display');
+        box.innerHTML = '';
+        list.forEach(m => {
+            const name = m.title || m.name;
+            if(!m.poster_path) return;
+
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = `
+                <img src="https://image.tmdb.org/p/w500${m.poster_path}">
+                <div class="info"><h3>${name}</h3></div>
+                <div class="download-box">
+                    <a href="https://vidsrc.to/embed/movie/${m.id}" target="_blank" class="btn s-link">Watch Online (HD)</a>
+                    <a href="https://www.google.com/search?q=index+of+${name}+download" target="_blank" class="btn v-link">Direct Download</a>
+                    <a href="https://vegamovies.ngo/?s=${name}" target="_blank" class="btn m-link">High Speed Link</a>
+                </div>
+            `;
+            box.appendChild(div);
+        });
+    }
+
+    loadInitial();
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Fast & Reliable</p>
+    <p>Growth Cinema &copy; 2026 - Unlimited Entertainment</p>
 </footer>
 
 </body>
