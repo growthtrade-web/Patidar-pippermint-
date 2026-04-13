@@ -1,83 +1,301 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patel & Patel Panipuri</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#d32f2f">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>GrowthTrade Hub - Live Markets, News & Community</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #d32f2f; --yellow: #ffd600; --whatsapp: #25d366; }
-        body { background: #1a0f0f; font-family: 'Poppins', sans-serif; margin: 0; text-align: center; color: #333; }
-        
-        .header { background: #fff; padding: 25px; border-bottom: 5px solid var(--red); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        h1 { color: var(--red); margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; }
-        .sub-text { color: #555; font-size: 14px; margin-top: 5px; }
-
-        .category-title { color: var(--yellow); font-size: 24px; margin: 30px 0 15px; font-family: 'Playfair Display', serif; text-decoration: underline; }
-
-        .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 15px 30px; max-width: 800px; margin: 0 auto; }
-        
-        .card { background: #fff; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        h3 { margin: 5px 0; font-size: 16px; color: #000; min-height: 45px; display: flex; align-items: center; justify-content: center; }
-        
-        .price { color: var(--red); font-weight: bold; font-size: 22px; margin: 10px 0; }
-        
-        .btn-wa { background: var(--whatsapp); color: white; padding: 10px; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 600; transition: 0.2s; }
-        .btn-wa:hover { background: #1ebe57; transform: scale(1.05); }
-
-        @media (max-width: 380px) { .container { grid-template-columns: 1fr; } }
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900">
 
-    <div class="header">
-        <h1>🍽️ PATEL & PATEL</h1>
-        <p class="sub-text">શુદ્ધ અને ચટાકેદાર પાણીપુરી • ભેળ • દાબેલી</p>
+<!-- Header -->
+<header class="gradient-bg text-white shadow-2xl sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4">
+        <nav class="flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-chart-line text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">GrowthTrade Hub</h1>
+                    <p class="text-xs opacity-90">Live Markets & Community</p>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="flex-1 max-w-md mx-8 relative hidden md:block">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-300"></i>
+                </div>
+                <input type="text" placeholder="Search stocks, news, traders..." 
+                       class="w-full pl-10 pr-4 py-2 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300">
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center space-x-4">
+                <button class="p-2 hover:bg-white/20 rounded-xl transition-all duration-300" title="Watchlist">
+                    <i class="fas fa-star"></i>
+                </button>
+                <button class="p-2 hover:bg-white/20 rounded-xl transition-all duration-300" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="px-6 py-2 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/30 transition-all duration-300">
+                    Join Community
+                </button>
+            </div>
+        </nav>
     </div>
+</header>
 
-    <div class="category-title">પાણીપુરી</div>
-    <div class="container">
-        <div class="card"><h3>પાની પૂરી</h3><div class="price">₹૨૦</div><a href="https://wa.me/917383838107?text=Order: પાની પૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>રગડા પૂરી</h3><div class="price">₹૨૦</div><a href="https://wa.me/917383838107?text=Order: રગડા પૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>લીંબુ મસાલા પૂરી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: લીંબુ મસાલા પૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>શેવ પૂરી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: શેવ પૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>દહીં પૂરી</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: દહીં પૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>ચીઝ પૂરી</h3><div class="price">₹૬૦</div><a href="https://wa.me/917383838107?text=Order: ચીઝ પૂરી" class="btn-wa">WhatsApp Order</a></div>
+<!-- Main Dashboard -->
+<main class="container mx-auto px-4 py-8 max-w-7xl">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+        <!-- Market Overview -->
+        <div class="lg:col-span-1 space-y-6">
+            <!-- Live Market Indices -->
+            <div class="glass-effect bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-xl">
+                <h3 class="font-semibold text-lg mb-4 flex items-center">
+                    <i class="fas fa-chart-line text-green-500 mr-2"></i>
+                    Live Indices
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-3 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-xl">
+                        <span>NIFTY 50</span>
+                        <div>
+                            <div class="text-lg font-bold text-green-600">24,150 <span class="text-sm">+1.2%</span></div>
+                            <div class="text-xs text-green-500">+285 pts</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-xl">
+                        <span>SENSEX</span>
+                        <div>
+                            <div class="text-lg font-bold text-red-600">79,850 <span class="text-sm">-0.8%</span></div>
+                            <div class="text-xs text-red-500">-650 pts</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl">
+                        <span>DOW JONES</span>
+                        <div>
+                            <div class="text-lg font-bold text-blue-600">42,300 <span class="text-sm">+0.5%</span></div>
+                            <div class="text-xs text-blue-500">+210 pts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Gainers/Losers -->
+            <div class="glass-effect bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-xl">
+                <h4 class="font-semibold mb-4">Top Movers</h4>
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span>RELIANCE</span>
+                        <span class="text-green-600 font-medium">+3.2%</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span>TCS</span>
+                        <span class="text-red-600 font-medium">-2.1%</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span>INFY</span>
+                        <span class="text-green-600 font-medium">+1.8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Stats -->
+            <div class="glass-effect bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-xl">
+                <h4 class="font-semibold mb-4">Community</h4>
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                        <div class="text-2xl font-bold text-blue-600">12.5K</div>
+                        <div class="text-xs">Active Traders</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-green-600">89%</div>
+                        <div class="text-xs">Win Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- News & Articles (Main Content) -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Breaking News Ticker -->
+            <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 rounded-xl overflow-hidden">
+                <div class="flex items-center space-x-4 animate-pulse-slow">
+                    <i class="fas fa-bolt text-xl"></i>
+                    <div class="flex-1 min-w-0">
+                        <marquee behavior="scroll" direction="left" scrollamount="4">
+                            🚨 RBI announces 50bps rate cut! Markets surge 2% | Fed signals pause on hikes | Tesla beats earnings, stock +12% after hours | Oil prices drop to $78/barrel
+                        </marquee>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured News -->
+            <div class="space-y-6">
+                <article class="glass-effect bg-white backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 border border-white/50">
+                    <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="px-3 py-1 bg-red-500 text-xs font-semibold rounded-full">BREAKING</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
+                            <i class="fas fa-clock mr-1"></i>
+                            <span>2 mins ago</span>
+                            <span class="mx-2">•</span>
+                            <span>Markets</span>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-3 leading-tight">
+                            RBI Cuts Repo Rate by 50bps: Biggest Cut in Decade Sparks Market Rally
+                        </h2>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            In a surprise move, RBI Governor announces emergency rate cut to boost slowing economy. Nifty surges 850 points in 30 mins...
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <img src="https://i.pravatar.cc/32" class="w-8 h-8 rounded-full mr-2">
+                                <span>Rajesh Kumar</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="p-2 hover:bg-gray-200 rounded-full"><i class="far fa-thumbs-up"></i></button>
+                                <button class="p-2 hover:bg-gray-200 rounded-full"><i class="far fa-comment"></i></button>
+                                <button class="p-2 hover:bg-gray-200 rounded-full"><i class="far fa-share-square"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Latest News Grid -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <article class="glass-effect bg-white backdrop-blur-sm rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-white/50">
+                        <div class="h-32 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg mb-4 relative"></div>
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <i class="fas fa-globe mr-1"></i> International
+                        </div>
+                        <h3 class="font-semibold mb-3 line-clamp-2">Fed Chair Powell Hints at Rate Pause: Markets React Cautiously</h3>
+                        <p class="text-sm text-gray-600 mb-4">Jerome Powell's comments spark debate on future monetary policy direction...</p>
+                        <div class="text-xs text-gray-500">5 mins ago • 1.2K views</div>
+                    </article>
+
+                    <article class="glass-effect bg-white backdrop-blur-sm rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-white/50">
+                        <div class="h-32 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg mb-4 relative"></div>
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <i class="fas fa-coins mr-1"></i> Crypto
+                        </div>
+                        <h3 class="font-semibold mb-3 line-clamp-2">Bitcoin Surges Past $68K on ETF Approval Rumors</h3>
+                        <p class="text-sm text-gray-600 mb-4">Institutional buying accelerates as SEC decision nears...</p>
+                        <div class="text-xs text-gray-500">12 mins ago • 3.8K views</div>
+                    </article>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community & Trending -->
+        <div class="lg:col-span-1 space-y-6">
+            <!-- Trending Tickers -->
+            <div class="glass-effect bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-xl">
+                <h4 class="font-semibold mb-4 flex items-center">
+                    <i class="fas fa-fire text-orange-500 mr-2"></i>
+                    Trending
+                </h4>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-orange-500/10 rounded-xl">
+                        <span class="font-medium">#RBIcut</span>
+                        <span class="text-xs bg-orange-500 text-white px-2 py-1 rounded-full">45K</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-500/10 rounded-xl">
+                        <span class="font-medium">#NiftyHigh</span>
+                        <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">32K</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-purple-500/10 rounded-xl">
+                        <span class="font-medium">#Bitcoin</span>
+                        <span class="text-xs bg-purple-500 text-white px-2 py-1 rounded-full">28K</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Traders -->
+            <div class="glass-effect bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-xl">
+                <h4 class="font-semibold mb-4">Top Traders</h4>
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-xl cursor-pointer transition-colors">
+                        <img src="https://i.pravatar.cc/40" class="w-10 h-10 rounded-full">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium truncate">Ankit Sharma</div>
+                            <div class="text-xs text-green-600">+24.5% this week</div>
+                        </div>
+                        <div class="text-sm font-semibold text-gray-700">12.3K</div>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-xl cursor-pointer transition-colors">
+                        <img src="https://i.pravatar.cc/40" class="w-10 h-10 rounded-full">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium truncate">Priya Patel</div>
+                            <div class="text-xs text-blue-600">+18.2% this week</div>
+                        </div>
+                        <div class="text-sm font-semibold text-gray-700">9.8K</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="glass-effect bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-xl space-y-3">
+                <h4 class="font-semibold">Quick Actions</h4>
+                <div class="grid grid-cols-2 gap-2">
+                    <button class="p-3 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 transition-all border border-blue-500/30 text-blue-700 font-medium">Stock Screener</button>
+                    <button class="p-3 rounded-xl bg-green-500/10 hover:bg-green-500/20 transition-all border border-green-500/30 text-green-700 font-medium">Portfolio</button>
+                    <button class="p-3 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 transition-all border border-purple-500/30 text-purple-700 font-medium">Trade Ideas</button>
+                    <button class="p-3 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 transition-all border border-orange-500/30 text-orange-700 font-medium">Live Chat</button>
+                </div>
+            </div>
+        </div>
     </div>
+</main>
 
-    <div class="category-title">ભેળ</div>
-    <div class="container">
-        <div class="card"><h3>બોમ્બે ભેળ પૂરી</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: બોમ્બે ભેળ પૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>પૂરી લુંગ</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: પૂરી લુંગ" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>કાઠીયાવાડી ભેળ</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: કાઠીયાવાડી ભેળ" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>ચીઝ ભેળ</h3><div class="price">₹૬૦</div><a href="https://wa.me/917383838107?text=Order: ચીઝ ભેળ" class="btn-wa">WhatsApp Order</a></div>
-    </div>
-
-    <div class="category-title">દાબેલી</div>
-    <div class="container">
-        <div class="card"><h3>કચ્છી દાબેલી</h3><div class="price">₹૨૦</div><a href="https://wa.me/917383838107?text=Order: કચ્છી દાબેલી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>ઓઈલ દાબેલી</h3><div class="price">₹૨૫</div><a href="https://wa.me/917383838107?text=Order: ઓઈલ દાબેલી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>બટર ફ્રાય દાબેલી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: બટર ફ્રાય દાબેલી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>ચીઝ બટર દાબેલી</h3><div class="price">₹૫૦</div><a href="https://wa.me/917383838107?text=Order: ચીઝ બટર દાબેલી" class="btn-wa">WhatsApp Order</a></div>
-    </div>
-
-    <div class="category-title">આલુપૂરી</div>
-    <div class="container">
-        <div class="card"><h3>સ્પે. બોમ્બે આલુપૂરી</h3><div class="price">₹૩૦</div><a href="https://wa.me/917383838107?text=Order: સ્પે. બોમ્બે આલુપૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>રગડા આલુપૂરી</h3><div class="price">₹૪૦</div><a href="https://wa.me/917383838107?text=Order: રગડા આલુપૂરી" class="btn-wa">WhatsApp Order</a></div>
-        <div class="card"><h3>સ્પે. P & P આલુપૂરી</h3><div class="price">₹૬૦</div><a href="https://wa.me/917383838107?text=Order: સ્પે. P & P આલુપૂરી" class="btn-wa">WhatsApp Order</a></div>
-    </div>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js');
-            });
-        }
-    </script>
-</body>
-</html>
+<!-- Footer -->
+<footer class="mt-20 bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">GrowthTrade Hub</h3>
+                <p class="text-gray-400 mb-4">Your ultimate destination for live market news, trading insights, and community discussions.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Markets</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">NSE</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">BSE</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">NASDAQ</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Forex</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Community</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Top Traders</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Trade Ideas</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Live Chat</a></li>
+                    <li><a href="#" class="hover:text-white transition
