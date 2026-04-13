@@ -3,99 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | Download Portal</title>
+    <title>Growth Cinema | Direct Download</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; }
         
         header { 
             background: linear-gradient(180deg, #e50914 0%, #000 100%);
-            padding: 40px 10px; text-align: center;
+            padding: 30px 10px; text-align: center;
+        }
+
+        .search-container {
+            padding: 15px; position: sticky; top: 0; background: #000; z-index: 100;
+        }
+
+        #movieSearch {
+            width: 100%; padding: 12px; border-radius: 25px; border: 2px solid #e50914;
+            background: #111; color: #fff; outline: none;
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px; padding: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px; padding: 15px;
         }
 
         .movie-card {
-            background: #111;
-            border: 1px solid #e50914;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
+            background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
+            padding: 10px; text-align: center; display: flex; flex-direction: column;
         }
 
         .movie-name {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 15px;
-            min-height: 40px;
+            font-size: 0.85rem; font-weight: bold; margin-bottom: 10px;
+            min-height: 35px; color: #ffcc00;
         }
 
-        .links { display: flex; flex-direction: column; gap: 10px; }
-        
-        .btn {
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: bold;
-            text-align: center;
-            color: #fff;
+        .dl-btn {
+            text-decoration: none; padding: 8px; border-radius: 4px;
+            font-size: 11px; font-weight: bold; color: #fff;
+            background: #e50914; margin-bottom: 5px;
         }
 
-        /* Direct Working Servers */
-        .btn-blue { background: #0056b3; } 
-        .btn-green { background: #27ae60; }
+        .dl-btn.alt { background: #2980b9; }
 
-        footer { text-align: center; padding: 30px; color: #444; font-size: 12px; }
+        footer { text-align: center; padding: 20px; color: #444; font-size: 11px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Growth Cinema</h1>
-    <p>Duniya ki 50,000+ Movies & Series</p>
+    <p>Direct Download - 1000+ Movies</p>
 </header>
 
-<div class="container" id="movie-grid">
+<div class="search-container">
+    <input type="text" id="movieSearch" placeholder="Search from 1000+ movies..." onkeyup="filterMovies()">
+</div>
+
+<div class="container" id="movieGrid">
     </div>
 
 <script>
-    // Is list mein aap hazaron movies ke naam daal sakte hain
-    const movieDatabase = [
-        "Pushpa 2: The Rule", "Singham Again", "Deadpool & Wolverine", "Kalki 2898 AD", 
-        "Animal", "Jawan", "Stree 2", "Gadar 2", "Leo", "Salaar", 
-        "KGF Chapter 2", "RRR", "Pathaan", "Vikram", "The Batman",
-        "Avatar: Way of Water", "Fast X", "Oppenheimer", "Money Heist", "Stranger Things"
+    // Maine yahan trending movies ki badi list di hai. 
+    // Aap is list mein 1000+ movies ke naam asani se add kar sakte hain.
+    const movies = [
+        "Pushpa 2: The Rule", "Singham Again", "Deadpool & Wolverine", "Kalki 2898 AD", "Animal", "Jawan", "Stree 2", "Gadar 2", "Leo", "Salaar", "KGF Chapter 2", "RRR", "Pathaan", "Vikram", "The Batman", "Avatar 2", "Fast X", "Oppenheimer", "Money Heist", "Stranger Things", "Brahmastra", "Drishyam 2", "Kantara", "Ponniyin Selvan", "Major", "Bhool Bhulaiyaa 2", "Vikram Vedha", "Bhediya", "Cirkus", "Adipurush"
+        // Isi tarah aap comma (,) laga kar 1000 naam daal sakte hain.
     ];
 
-    const grid = document.getElementById('movie-grid');
+    const grid = document.getElementById('movieGrid');
 
-    movieDatabase.forEach(movie => {
-        const card = document.createElement('div');
-        card.className = 'movie-card';
-        
-        // Ye links automatic naye domains dhoondte hain
-        const googleDownload = `https://www.google.com/search?q=${encodeURIComponent(movie)}+download+site:vegamovies.ngo`;
-        const directIndex = `https://www.google.com/search?q=index+of+${encodeURIComponent(movie)}`;
+    function loadMovies(data) {
+        grid.innerHTML = '';
+        data.forEach(name => {
+            const card = document.createElement('div');
+            card.className = 'movie-card';
+            
+            // Ye links direct un websites ke search page par le jayenge
+            const link1 = `https://vegamovies.ngo/?s=${encodeURIComponent(name)}`;
+            const link2 = `https://bollyflix.pw/?s=${encodeURIComponent(name)}`;
 
-        card.innerHTML = `
-            <div class="movie-name">${movie}</div>
-            <div class="links">
-                <a href="${googleDownload}" target="_blank" class="btn btn-blue">Download Link 1</a>
-                <a href="${directIndex}" target="_blank" class="btn btn-green">Download Link 2</a>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
+            card.innerHTML = `
+                <div class="movie-name">${name}</div>
+                <a href="${link1}" target="_blank" class="dl-btn">Download Server 1</a>
+                <a href="${link2}" target="_blank" class="dl-btn alt">Download Server 2</a>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function filterMovies() {
+        const term = document.getElementById('movieSearch').value.toLowerCase();
+        const filtered = movies.filter(m => m.toLowerCase().includes(term));
+        loadMovies(filtered);
+    }
+
+    loadMovies(movies);
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Fast Public Server</p>
+    <p>&copy; 2026 Growth Cinema | Public Launch Version</p>
 </footer>
 
 </body>
