@@ -3,146 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrowthTrade Hub - Pro Live Terminal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Growth Trade Electronics | Best Tech Deals</title>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }
-        .gradient-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-bottom: 2px solid #334155; }
-        .card-dark { background: rgba(30, 41, 59, 0.7); border: 1px solid #334155; backdrop-filter: blur(10px); }
-        .live-dot { height: 8px; width: 8px; background-color: #ff4d4d; border-radius: 50%; display: inline-block; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #333; }
+        
+        header { 
+            background-color: #131921; 
+            color: white; 
+            padding: 2rem; 
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover { transform: translateY(-8px); }
+
+        .img-container {
+            background: #fff;
+            padding: 15px;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-card img { max-height: 100%; max-width: 100%; }
+
+        .info { padding: 20px; text-align: center; }
+        .title { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; color: #111; }
+        .category { color: #007185; font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; }
+
+        .links { display: flex; flex-direction: column; gap: 10px; padding: 0 20px 20px; }
+        
+        .btn {
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.9; }
+        .amazon { background-color: #FFD814; color: #0f1111; border: 1px solid #FCD200; }
+        .flipkart { background-color: #2874f0; color: white; }
+
+        footer { text-align: center; padding: 30px; color: #666; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<header class="gradient-bg py-4 sticky top-0 z-50">
-    <div class="container mx-auto px-4 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <i class="fas fa-bolt text-yellow-400 text-2xl"></i>
-            <h1 class="text-xl font-extrabold tracking-tight">GROWTH TRADE <span class="text-blue-400">PRO</span></h1>
-        </div>
-        <div class="flex items-center space-x-2 text-sm font-medium">
-            <span class="live-dot"></span>
-            <span class="text-gray-400">MARKET LIVE</span>
-        </div>
-    </div>
+<header>
+    <h1>Growth Trade Electronics</h1>
+    <p>Top Rated Electronics from Amazon & Flipkart</p>
 </header>
 
-<div class="border-b border-gray-800">
-    <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-        "symbols": [
-            {"proName": "FOREXCOM:SPX500", "title": "S&P 500"},
-            {"proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100"},
-            {"proName": "FX_IDC:INRUSD", "title": "USD/INR"},
-            {"proName": "BITSTAMP:BTCUSD", "title": "BTC/USD"},
-            {"proName": "BITSTAMP:ETHUSD", "title": "ETH/USD"},
-            {"proName": "BINANCE:SOLUSDT", "title": "SOL/USDT"}
-        ],
-        "showSymbolLogo": true, "colorTheme": "dark", "isTransparent": true, "displayMode": "adaptive", "locale": "en"
-        }
-        </script>
+<div class="container">
+    
+    <div class="product-card">
+        <div class="img-container">
+            <img src="https://m.media-amazon.com/images/I/71657TuYSXL._SL1500_.jpg" alt="Smartphone">
+        </div>
+        <div class="info">
+            <div class="category">Mobiles</div>
+            <div class="title">Latest Premium Smartphone</div>
+        </div>
+        <div class="links">
+            <a href="https://www.amazon.in/s?k=smartphone" target="_blank" class="btn amazon">View on Amazon</a>
+            <a href="https://www.flipkart.com/search?q=smartphone" target="_blank" class="btn flipkart">View on Flipkart</a>
+        </div>
     </div>
+
+    <div class="product-card">
+        <div class="img-container">
+            <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._SL1500_.jpg" alt="Laptop">
+        </div>
+        <div class="info">
+            <div class="category">Laptops</div>
+            <div class="title">High Performance Laptop</div>
+        </div>
+        <div class="links">
+            <a href="https://www.amazon.in/s?k=laptop" target="_blank" class="btn amazon">View on Amazon</a>
+            <a href="https://www.flipkart.com/search?q=laptop" target="_blank" class="btn flipkart">View on Flipkart</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="img-container">
+            <img src="https://m.media-amazon.com/images/I/61ZjlBOp+rL._SL1500_.jpg" alt="Smartwatch">
+        </div>
+        <div class="info">
+            <div class="category">Wearables</div>
+            <div class="title">Fitness Smartwatch</div>
+        </div>
+        <div class="links">
+            <a href="https://www.amazon.in/s?k=smartwatch" target="_blank" class="btn amazon">View on Amazon</a>
+            <a href="https://www.flipkart.com/search?q=smartwatch" target="_blank" class="btn flipkart">View on Flipkart</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="img-container">
+            <img src="https://m.media-amazon.com/images/I/61K76In4S9L._SL1500_.jpg" alt="Headphones">
+        </div>
+        <div class="info">
+            <div class="category">Audio</div>
+            <div class="title">Noise Cancelling Headphones</div>
+        </div>
+        <div class="links">
+            <a href="https://www.amazon.in/s?k=headphones" target="_blank" class="btn amazon">View on Amazon</a>
+            <a href="https://www.flipkart.com/search?q=headphones" target="_blank" class="btn flipkart">View on Flipkart</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="img-container">
+            <img src="https://m.media-amazon.com/images/I/71S8U9VzLTL._SL1500_.jpg" alt="Tablet">
+        </div>
+        <div class="info">
+            <div class="category">Tablets</div>
+            <div class="title">Portable Work Tablet</div>
+        </div>
+        <div class="links">
+            <a href="https://www.amazon.in/s?k=tablet" target="_blank" class="btn amazon">View on Amazon</a>
+            <a href="https://www.flipkart.com/search?q=tablet" target="_blank" class="btn flipkart">View on Flipkart</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="img-container">
+            <img src="https://m.media-amazon.com/images/I/71XvO7Zq1PL._SL1500_.jpg" alt="Camera">
+        </div>
+        <div class="info">
+            <div class="category">Cameras</div>
+            <div class="title">Professional DSLR Camera</div>
+        </div>
+        <div class="links">
+            <a href="https://www.amazon.in/s?k=camera" target="_blank" class="btn amazon">View on Amazon</a>
+            <a href="https://www.flipkart.com/search?q=camera" target="_blank" class="btn flipkart">View on Flipkart</a>
+        </div>
+    </div>
+
 </div>
 
-<main class="container mx-auto px-4 py-6 max-w-7xl">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-        <div class="lg:col-span-3 space-y-6">
-            <div class="card-dark rounded-2xl p-4 shadow-2xl">
-                <h3 class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">Live Global Markets</h3>
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                    {
-                    "colorTheme": "dark", "dateRange": "12M", "showChart": false, "locale": "en", "width": "100%", "height": 350, "isTransparent": true, "showSymbolLogo": true,
-                    "tabs": [{ "title": "Indices", "symbols": [
-                        {"s": "FOREXCOM:SPX500", "d": "S&P 500"},
-                        {"s": "FOREXCOM:NSXUSD", "d": "Nasdaq 100"},
-                        {"s": "INDEX:DAX", "d": "DAX Index"},
-                        {"s": "INDEX:NI225", "d": "Nikkei 225"},
-                        {"s": "INDEX:HSI", "d": "Hang Seng"}
-                    ]}]
-                    }
-                    </script>
-                </div>
-            </div>
-
-            <div class="card-dark rounded-2xl p-4 border-l-4 border-blue-500">
-                <h3 class="text-sm font-bold text-gray-400 mb-2 uppercase">Trading Tip / Sentiment</h3>
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-                    {
-                    "interval": "1m", "width": "100%", "isTransparent": true, "height": 320, "symbol": "NASDAQ:AAPL", "showIntervalTabs": true, "locale": "en", "colorTheme": "dark"
-                    }
-                    </script>
-                </div>
-                <p class="text-[10px] text-gray-500 mt-2 text-center">Based on real-time technical oscillators.</p>
-            </div>
-        </div>
-
-        <div class="lg:col-span-6 space-y-6">
-            <div class="card-dark rounded-2xl p-2 shadow-2xl overflow-hidden" style="height: 500px;">
-                <div id="tradingview_pro_chart" style="height: 100%;"></div>
-            </div>
-
-            <div class="card-dark rounded-2xl p-4">
-                <h3 class="font-bold mb-4 flex items-center"><i class="fas fa-rss mr-2 text-orange-500"></i> Breaking Live News</h3>
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                    {
-                    "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "displayMode": "regular", "width": "100%", "height": 450, "locale": "en"
-                    }
-                    </script>
-                </div>
-            </div>
-        </div>
-
-        <div class="lg:col-span-3 space-y-6">
-            <div class="card-dark rounded-2xl p-4 shadow-xl">
-                <h4 class="text-sm font-bold text-gray-400 mb-4 uppercase">Top Movers (Live)</h4>
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
-                    {
-                    "colorTheme": "dark", "dateRange": "12M", "exchange": "US", "showChart": false, "locale": "en", "width": "100%", "height": 400, "isTransparent": true, "showSymbolLogo": true
-                    }
-                    </script>
-                </div>
-            </div>
-
-            <div class="card-dark rounded-2xl p-4">
-                <h4 class="text-sm font-bold text-gray-400 mb-4 uppercase">Economic Calendar</h4>
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                    {
-                    "colorTheme": "dark", "isTransparent": true, "width": "100%", "height": 350, "locale": "en", "importanceFilter": "-1,0,1"
-                    }
-                    </script>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-<script type="text/javascript">
-  new TradingView.widget({
-    "autosize": true,
-    "symbol": "BINANCE:BTCUSDT",
-    "interval": "15",
-    "timezone": "Etc/UTC",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "toolbar_bg": "#f1f3f6",
-    "enable_publishing": false,
-    "allow_symbol_change": true,
-    "container_id": "tradingview_pro_chart"
-  });
-</script>
+<footer>
+    <p>&copy; 2026 Growth Trade Electronics. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
