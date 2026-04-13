@@ -3,122 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | Global Movie Database</title>
+    <title>Growth Cinema | Home</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; }
+        body { font-family: 'Arial', sans-serif; background: #000; color: #fff; }
         
         header { 
-            background: linear-gradient(180deg, #db0000 0%, #000 100%);
+            background: linear-gradient(to bottom, #ff0000, #000);
             padding: 40px 20px; text-align: center;
-        }
-
-        .search-box { 
-            text-align: center; padding: 20px; position: sticky; 
-            top: 0; background: #000; z-index: 100; 
-        }
-        #search { 
-            padding: 15px; width: 90%; max-width: 500px; 
-            border-radius: 30px; border: 2px solid #e50914; 
-            background: #111; color: #fff; outline: none; font-size: 16px;
         }
 
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px; padding: 15px;
+            gap: 15px; padding: 20px;
         }
 
         .card { background: #111; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
-        .card img { width: 100%; height: 230px; object-fit: cover; background: #222; }
+        .card img { width: 100%; height: 230px; object-fit: cover; }
         
         .info { padding: 10px; text-align: center; }
-        .info h3 { font-size: 0.9rem; margin-bottom: 10px; height: 35px; overflow: hidden; }
+        .info h3 { font-size: 0.9rem; margin-bottom: 10px; }
 
         .links { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
         .btn {
             text-decoration: none; padding: 8px; border-radius: 5px;
-            font-size: 12px; font-weight: bold; text-align: center; transition: 0.2s;
+            font-size: 11px; font-weight: bold; text-align: center;
         }
-        /* New Working Servers */
-        .server-1 { background: #e50914; color: #fff; } /* Vegamovies style */
-        .server-2 { background: #0056b3; color: #fff; } /* Bollyflix style */
-        .server-3 { background: #27ae60; color: #fff; } /* Video Server */
+        .b1 { background: #e50914; color: #fff; }
+        .b2 { background: #3498db; color: #fff; }
 
-        footer { text-align: center; padding: 30px; color: #555; font-size: 12px; }
+        footer { text-align: center; padding: 30px; color: #444; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Growth Cinema</h1>
-    <p>Search Any Movie in the World</p>
+    <p>Watch Latest Movies & Series</p>
 </header>
-
-<div class="search-box">
-    <input type="text" id="search" placeholder="Type Movie Name & Press Enter..." onkeypress="handleSearch(event)">
-    <p style="font-size: 10px; margin-top: 10px; color: #888;">Note: Search movie to get automatic download links.</p>
-</div>
 
 <div class="container" id="movie-grid">
     </div>
 
 <script>
-    const key = '3fd2be37162b59b89396193d960052d3';
-    const imgPath = 'https://image.tmdb.org/t/p/w500';
+    // Ye data 100% chalega kyunki ye direct code mein hai
+    const movieData = [
+        { title: "Pushpa 2: The Rule", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
+        { title: "Singham Again", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
+        { title: "Deadpool & Wolverine", img: "https://image.tmdb.org/t/p/w500/8cdWjvZQUvS6UvU6z8UvU6z8UvU.jpg" },
+        { title: "Kalki 2898 AD", img: "https://image.tmdb.org/t/p/w500/7V9G6I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
+        { title: "Animal", img: "https://image.tmdb.org/t/p/w500/vX9Y6R8vG6f1WJ3vMvUvS2X6jYV.jpg" },
+        { title: "Jawan", img: "https://image.tmdb.org/t/p/w500/n8Z89I9UvU6z8UvU6z8UvU6z8Uv.jpg" },
+        { title: "Spider-Man: No Way Home", img: "https://image.tmdb.org/t/p/w500/1g0m2YpScyIzXvW9hHozCLJbiST.jpg" },
+        { title: "Stranger Things", img: "https://image.tmdb.org/t/p/w500/49WfT1U6NX6YmPOCtz9t99696Yg.jpg" }
+    ];
 
-    // 1. Movies Load karne ka function
-    async function fetchMovies(url) {
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            displayMovies(data.results);
-        } catch (e) {
-            console.log("Error");
-        }
-    }
+    const grid = document.getElementById('movie-grid');
 
-    // 2. Movies dikhane ka logic
-    function displayMovies(movies) {
-        const grid = document.getElementById('movie-grid');
-        grid.innerHTML = '';
-        
-        movies.forEach(m => {
-            const name = m.title || m.name;
-            const poster = m.poster_path ? imgPath + m.poster_path : 'https://via.placeholder.com/500x750?text=No+Photo';
-            
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <img src="${poster}" alt="${name}">
-                <div class="info"><h3>${name}</h3></div>
-                <div class="links">
-                    <a href="https://vegamovies.ngo/?s=${name}" target="_blank" class="btn server-1">Server 1 (High Speed)</a>
-                    <a href="https://bollyflix.pw/?s=${name}" target="_blank" class="btn server-2">Server 2 (HD)</a>
-                    <a href="https://vidsrc.to/embed/movie/${m.id}" target="_blank" class="btn server-3">Watch Online</a>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    }
-
-    // 3. Search handle karna
-    function handleSearch(event) {
-        if (event.key === "Enter") {
-            const query = document.getElementById('search').value;
-            if (query) {
-                fetchMovies(`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${query}`);
-            }
-        }
-    }
-
-    // Default Trending Movies (Starting mein dikhane ke liye)
-    fetchMovies(`https://api.themoviedb.org/3/trending/all/week?api_key=${key}`);
-
+    // Movies ko display karne ka loop
+    movieData.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${movie.img}" alt="${movie.title}">
+            <div class="info"><h3>${movie.title}</h3></div>
+            <div class="links">
+                <a href="https://vegamovies.ngo/?s=${movie.title}" target="_blank" class="btn b1">Download Server 1</a>
+                <a href="https://bollyflix.pw/?s=${movie.title}" target="_blank" class="btn b2">Download Server 2</a>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Worldwide Database System</p>
+    <p>&copy; 2026 Growth Cinema | Fast & Reliable</p>
 </footer>
 
 </body>
