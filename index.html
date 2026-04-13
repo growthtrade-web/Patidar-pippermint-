@@ -3,111 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Cinema | New Movies</title>
+    <title>Growth Cinema | Watch Online</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #080808; color: white; }
+        body { font-family: 'Arial', sans-serif; background: #000; color: #fff; }
         
         header { 
-            background: linear-gradient(180deg, #db0000 0%, #080808 100%);
-            padding: 50px 20px; text-align: center;
+            background: linear-gradient(to bottom, #ff0000, #000);
+            padding: 40px 20px; text-align: center;
         }
-
-        .search-box { text-align: center; padding: 20px; position: sticky; top: 0; background: #080808; z-index: 10; }
-        #search { padding: 12px; width: 90%; max-width: 400px; border-radius: 20px; border: 1px solid #444; background: #222; color: #fff; }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px; padding: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px; padding: 20px;
         }
 
-        .card { background: #1a1a1a; border-radius: 8px; overflow: hidden; border: 1px solid #333; }
-        .card img { width: 100%; height: 220px; object-fit: cover; background: #333; }
-        .card-info { padding: 10px; text-align: center; }
-        .card-info h3 { font-size: 0.85rem; height: 35px; overflow: hidden; margin-bottom: 10px; }
+        .card { background: #111; border-radius: 10px; overflow: hidden; border: 1px solid #222; }
+        .card img { width: 100%; height: 230px; object-fit: cover; }
+        
+        .info { padding: 10px; text-align: center; }
+        .info h3 { font-size: 0.9rem; margin-bottom: 10px; color: #eee; }
 
-        .btn-group { display: flex; flex-direction: column; gap: 5px; padding: 5px; }
-        .btn { text-decoration: none; font-size: 11px; padding: 8px; border-radius: 4px; font-weight: bold; text-align: center; }
-        .btn-1 { background: #e50914; color: white; }
-        .btn-2 { background: #f5c518; color: black; }
+        .links { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
+        .btn {
+            text-decoration: none; padding: 8px; border-radius: 5px;
+            font-size: 12px; font-weight: bold; text-align: center;
+        }
+        .b1 { background: #e50914; color: #fff; }
+        .b2 { background: #f39c12; color: #000; }
 
-        footer { text-align: center; padding: 30px; color: #666; font-size: 12px; }
+        footer { text-align: center; padding: 30px; color: #444; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Growth Cinema</h1>
-    <p>Daily Trending Movies & Series</p>
+    <p>World's Best Movies & Series</p>
 </header>
 
-<div class="search-box">
-    <input type="text" id="search" placeholder="Search Movie Name..." onkeyup="searchMovie()">
-</div>
-
-<div class="container" id="movie-grid">
+<div class="container" id="movie-list">
     </div>
 
 <script>
-    // TMDB API Details
-    const key = '3fd2be37162b59b89396193d960052d3';
-    const list_url = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
-    const img_url = 'https://image.tmdb.org/t/p/w500';
+    // Ye hai aapka movies ka data. Aap yahan aur movies khud add kar sakte hain.
+    const movies = [
+        { name: "Pushpa 2: The Rule", img: "https://m.media-amazon.com/images/M/MV5BNGZlNjdlZmMtMDBlYy00MTMzLThkNzAtNzk1YzI3ZGNlZWJjXkEyXkFqcGc@._V1_.jpg" },
+        { name: "Singham Again", img: "https://m.media-amazon.com/images/M/MV5BMjA0N2Y0M2ItYmVkOS00N2NmLWE2YjAtM2Q3N2M1N2FhZTE3XkEyXkFqcGc@._V1_.jpg" },
+        { name: "Deadpool & Wolverine", img: "https://m.media-amazon.com/images/M/MV5BZTk5OTUyMzUtNmE2Ni00MzEzLWExY2QtMWY2NWVkYjgxM2M2XkEyXkFqcGc@._V1_.jpg" },
+        { name: "Jawan", img: "https://m.media-amazon.com/images/M/MV5BOWI5NmU3NWUtOTYzYS00ZmRjLTlhZjktOTRlY2ZlMWFhZDQ0XkEyXkFqcGdeQXVyMTUzNTgzNzM0._V1_.jpg" },
+        { name: "Kalki 2898 AD", img: "https://m.media-amazon.com/images/M/MV5BMDk4MTdhYjItZGY2YS00N2VlLWE4NjItZDU2NGI5ZjJlM2I1XkEyXkFqcGdeQXVyMTE0MzY0NjE1._V1_.jpg" },
+        { name: "The Dark Knight", img: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" },
+        { name: "Avengers: Endgame", img: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg" },
+        { name: "Stranger Things", img: "https://m.media-amazon.com/images/M/MV5BM2M0YmIxNzItOWI4My00MmRkLWFmZTMtNjBmZWZlOTUxMmQyXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_.jpg" }
+    ];
 
-    async function loadContent() {
-        try {
-            const response = await fetch(list_url);
-            const data = await response.json();
-            display(data.results);
-        } catch (error) {
-            console.log("Error loading movies");
-            document.getElementById('movie-grid').innerHTML = "<p style='text-align:center; width:100%;'>Loading failed. Please refresh page.</p>";
-        }
-    }
+    const list = document.getElementById('movie-list');
 
-    function display(items) {
-        const grid = document.getElementById('movie-grid');
-        grid.innerHTML = '';
-        
-        items.forEach(item => {
-            const name = item.title || item.name;
-            const poster = item.poster_path ? img_url + item.poster_path : 'https://via.placeholder.com/500x750?text=No+Poster';
-            
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <img src="${poster}" alt="${name}">
-                <div class="card-info">
-                    <h3>${name}</h3>
-                </div>
-                <div class="btn-group">
-                    <a href="https://moviebox.site/search/${name}" target="_blank" class="btn btn-1">MovieBox Link</a>
-                    <a href="https://ssrmovies.tools/?s=${name}" target="_blank" class="btn btn-2">SSRMovies Link</a>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    }
-
-    // Basic Search Logic
-    async function searchMovie() {
-        const query = document.getElementById('search').value;
-        if(query.length > 2) {
-            const s_url = `https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${query}`;
-            const res = await fetch(s_url);
-            const data = await res.json();
-            display(data.results);
-        } else if (query.length === 0) {
-            loadContent();
-        }
-    }
-
-    loadContent();
+    movies.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${movie.img}" alt="${movie.name}">
+            <div class="info"><h3>${movie.name}</h3></div>
+            <div class="links">
+                <a href="https://moviebox.site/search/${movie.name}" target="_blank" class="btn b1">MovieBox Link</a>
+                <a href="https://ssrmovies.tools/?s=${movie.name}" target="_blank" class="btn b2">SSRMovies Link</a>
+            </div>
+        `;
+        list.appendChild(card);
+    });
 </script>
 
 <footer>
-    <p>&copy; 2026 Growth Cinema | Entertainment for Everyone</p>
+    <p>&copy; 2026 Growth Cinema | Built by You</p>
 </footer>
 
 </body>
