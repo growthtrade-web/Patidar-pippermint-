@@ -3,20 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Growth Cinema</title>
+<title>Growth Cinema Pro</title>
 
 <style>
-body { font-family: Arial; background:#000; color:#fff; }
-header { background:red; padding:20px; text-align:center; }
+body { margin:0; font-family:Arial; background:#000; color:#fff; }
 
-.search-area {
-    position: sticky; top:0; background:#000; padding:10px;
+header {
+    background:linear-gradient(to right, red, black);
+    padding:20px;
+    text-align:center;
 }
+
+.search {
+    position:sticky;
+    top:0;
+    background:#000;
+    padding:10px;
+}
+
 input {
-    width:100%; padding:10px; font-size:16px;
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    background:#111;
+    border:1px solid red;
+    color:#fff;
 }
 
-.container {
+.grid {
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
     gap:10px;
@@ -24,15 +38,28 @@ input {
 }
 
 .card {
-    background:#111; padding:10px; border-radius:6px;
+    background:#111;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.card img {
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.card h3 {
+    font-size:14px;
+    padding:5px;
     text-align:center;
 }
 
-a {
+.btn {
     display:block;
-    margin-top:8px;
-    padding:8px;
     background:red;
+    text-align:center;
+    padding:8px;
     color:#fff;
     text-decoration:none;
 }
@@ -42,49 +69,69 @@ a {
 <body>
 
 <header>
-<h1>Growth Cinema</h1>
+<h1>🎬 Growth Cinema</h1>
 </header>
 
-<div class="search-area">
-<input type="text" id="search" placeholder="Search movie..." onkeyup="searchMovie()">
+<div class="search">
+<input type="text" id="search" placeholder="Search..." onkeyup="searchMovie()">
 </div>
 
-<div class="container" id="grid"></div>
+<div class="grid" id="grid"></div>
 
 <script>
 
-const movies = [
-"Pushpa 2","Jawan","RRR","KGF Chapter 2",
-"Animal","Pathaan","Salaar","Leo",
-"Avatar","Oppenheimer","Fast X"
-];
+// 🔥 👉 SIRF YAHAN API KEY DAALNI HAI
+const API_KEY = "YOUR_API_KEY_HERE";
 
+const IMG = "https://image.tmdb.org/t/p/w500";
 const grid = document.getElementById("grid");
 
-function load(data){
+// Trending load
+async function loadTrending(){
+    let res = await fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`);
+    let data = await res.json();
+    show(data.results);
+}
+
+// Show data
+function show(data){
     grid.innerHTML="";
-    data.forEach(name=>{
-        let link = "https://www.youtube.com/results?search_query=" + encodeURIComponent(name + " full movie");
+    data.forEach(item=>{
+        let title = item.title || item.name;
+        let poster = item.poster_path ? IMG + item.poster_path : "";
+
+        let link = "https://www.google.com/search?q=" + encodeURIComponent(title + " watch online");
 
         let div = document.createElement("div");
         div.className="card";
 
         div.innerHTML = `
-        <b>${name}</b>
-        <a href="${link}" target="_blank">Watch</a>
+        <img src="${poster}">
+        <h3>${title}</h3>
+        <a href="${link}" target="_blank" class="btn">Watch</a>
         `;
 
         grid.appendChild(div);
     });
 }
 
-function searchMovie(){
-    let q = document.getElementById("search").value.toLowerCase();
-    let filtered = movies.filter(m=>m.toLowerCase().includes(q));
-    load(filtered);
+// Search
+async function searchMovie(){
+    let q = document.getElementById("search").value;
+
+    if(q.length < 2){
+        loadTrending();
+        return;
+    }
+
+    let res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${q}`);
+    let data = await res.json();
+
+    show(data.results);
 }
 
-load(movies);
+// Start
+loadTrending();
 
 </script>
 
